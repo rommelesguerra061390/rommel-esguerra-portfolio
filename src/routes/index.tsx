@@ -16,6 +16,14 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import asanaCrm from "@/assets/Asana_CRM_Engagement_Automation.png.asset.json";
+import contentRepurposing from "@/assets/Content_Repurposing_Project.png.asset.json";
+import universalLead from "@/assets/Universal_Lead_Management_and_Follow_ups.png.asset.json";
+import xeroAsana from "@/assets/Export_Account_Transactions_from_Xero_Upload_CSV_to_Asana.png.asset.json";
+import aiLeadQual from "@/assets/AI_Lead_Qualification_Auto-Response_Agent_ZAP_MAPPING.png.asset.json";
+import ghlNewLead from "@/assets/Go_high_level_New_lead_Update_Automation.png.asset.json";
+import ghlQuote from "@/assets/Go_high_level_Quote_Follow_up_Automation.png.asset.json";
+import ghlAppointments from "@/assets/GO_high_level_Cleaning_Appointment_Confirmation_and_Reminders_automation.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -103,36 +111,113 @@ const EXPERIENCE = [
 
 const WORK = [
   {
-    title: "Agency Snapshot System",
-    tag: "GoHighLevel",
-    body: "A reusable sub-account snapshot with pipelines, calendars, review automations and onboarding forms — new clients live in under a day.",
+    title: "Zapier Asana CRM Engagement Automation",
+    tag: "Zapier",
+    body: "A 30-step Zap that watches Asana task updates and splits leads into Ready to Start, No Response, Quoted, Approved and Paid & Closed paths, each with its own Gmail follow-ups, delays, Google Drive folders and AI-written onboarding and recommendation emails.",
+    problem:
+      "Deal-stage follow-up lived in someone's head: leads sat unanswered between stages and onboarding emails were written from scratch every time.",
+    benefits: [
+      "Every pipeline stage triggers its own follow-up sequence automatically",
+      "Timed delays and filters stop duplicate or premature emails",
+      "Lead folders and content tasks are created without manual setup",
+    ],
+    images: [
+      { src: asanaCrm.url, alt: "Zapier workflow splitting Asana CRM stages into follow-up paths" },
+    ],
   },
   {
-    title: "AI Booking Assistant",
+    title: "Zapier Content Repurposing",
     tag: "AI Automation",
-    body: "Chat assistant that answers FAQs, qualifies leads and books directly into the calendar, with human handoff on complex requests.",
+    body: "New files dropped in a Google Drive folder are filtered, transcribed by AI, turned into a blog post, then looped and split into separate paths that publish tailored posts to Facebook Pages.",
+    problem:
+      "Recorded content sat unused because transcribing, rewriting and posting it to each channel was slow manual work.",
+    benefits: [
+      "One upload becomes a transcript, a blog post and social posts",
+      "Looping handles multiple content items in a single run",
+      "Path conditions keep each channel's format distinct",
+    ],
+    images: [
+      { src: contentRepurposing.url, alt: "Zapier content repurposing workflow from Drive upload to Facebook posts" },
+    ],
   },
   {
-    title: "Database Reactivation Campaign",
-    tag: "Workflows",
-    body: "SMS and email reactivation sequence for a cold list, with reply routing, opt-out handling and pipeline tracking.",
+    title: "Zapier Universal Lead Management and Follow Ups",
+    tag: "Lead Ops",
+    body: "New spreadsheet rows are validated for name and email, name-formatted, then fanned out to a Gmail follow-up, a Slack channel alert and a Trello card for the owning team.",
+    problem:
+      "Leads captured in a sheet were inconsistently formatted, often missing details, and reached the team late or not at all.",
+    benefits: [
+      "Incomplete rows are filtered out before anything is sent",
+      "Names are cleaned up so outreach looks professional",
+      "Email, Slack notification and task creation happen in one pass",
+    ],
+    images: [
+      { src: universalLead.url, alt: "Zapier workflow routing new spreadsheet leads to email, Slack and Trello" },
+    ],
   },
   {
-    title: "High-Converting Funnel Suite",
-    tag: "Funnels",
-    body: "Landing page, VSL page, application form and thank-you flow with tracking and instant lead notifications.",
+    title: "Make : Export bank Account Transaction From Xero To Asana",
+    tag: "Make",
+    body: "A Make scenario watching completed Asana tasks calls the Xero API, routes results through an iterator into Google Sheets, aggregates the rows into a file and uploads the attachment back to the originating Asana task before clearing the range.",
+    problem:
+      "Pulling account transactions out of Xero and attaching them to the right task was a repetitive copy-paste-export chore.",
+    benefits: [
+      "Transaction exports run on schedule instead of on request",
+      "Data is collected in Sheets then attached back to Asana automatically",
+      "Range clearing keeps each run clean and repeatable",
+    ],
+    images: [
+      { src: xeroAsana.url, alt: "Make scenario exporting Xero transactions into Google Sheets and Asana" },
+    ],
   },
   {
-    title: "Review & Reputation Engine",
-    tag: "Automation",
-    body: "Post-service review requests with smart timing, escalation for unhappy clients and reporting on rating growth.",
+    title: "AI Lead Qualification & Auto-Response Agent",
+    tag: "AI Automation",
+    body: "Google Forms submissions are scored and categorised by AI, logged as a spreadsheet row, then answered with a Gmail response matched to the lead's category.",
+    problem:
+      "Form enquiries arrived unsorted, so good leads waited in the same queue as low-intent ones.",
+    benefits: [
+      "Each enquiry is scored and categorised the moment it lands",
+      "A record is kept in Sheets for tracking and review",
+      "Leads receive an immediate, relevant reply",
+    ],
+    images: [
+      { src: aiLeadQual.url, alt: "Zapier AI agent scoring form leads and sending an automatic email reply" },
+    ],
   },
   {
-    title: "Ops Dashboard & Integrations",
-    tag: "Integrations",
-    body: "Make and webhook pipelines syncing CRM, sheets and billing tools into one dashboard for daily decisions.",
+    title: "Go High Level Residential Cleaning Automation",
+    tag: "GoHighLevel",
+    body: "Two connected GoHighLevel workflows: a new-lead response flow that tags the contact, creates an opportunity, sends SMS and email then branches on high intent versus not ready; and an appointment flow that confirms bookings, assigns a user, notifies the team and sends timed SMS and email reminders with a rescheduled condition.",
+    problem:
+      "Cleaning enquiries and bookings depended on staff remembering to reply, chase and remind — with no-shows and cold leads as the result.",
+    benefits: [
+      "Instant SMS and email response to every new enquiry",
+      "High-intent leads are tagged and escalated to the team",
+      "Confirmations, reminders and reschedule handling run automatically",
+    ],
+    images: [
+      { src: ghlNewLead.url, alt: "GoHighLevel new lead response workflow with intent branching" },
+      { src: ghlAppointments.url, alt: "GoHighLevel appointment confirmation and reminder workflow" },
+    ],
+  },
+  {
+    title: "AI-Powered Lead Qualification & Sales Follow-Up Automation",
+    tag: "GoHighLevel",
+    body: "A quote follow-up workflow triggered by contact tag: email, wait, then branch on quote-booked versus quote-sent, running a timed SMS, email and tag sequence before creating or updating the opportunity.",
+    problem:
+      "Sent quotes went quiet because nobody had time to chase them on a consistent schedule.",
+    benefits: [
+      "Every quote gets a structured multi-touch follow-up",
+      "Booked quotes exit the sequence via tag conditions",
+      "Pipeline opportunities stay updated as contacts progress",
+    ],
+    images: [
+      { src: ghlQuote.url, alt: "GoHighLevel quote follow-up workflow with booked and sent branches" },
+    ],
   },
 ];
+
 
 const TESTIMONIALS = [
   {
@@ -452,22 +537,9 @@ function Portfolio() {
 
         {/* Work */}
         <Section id="work" eyebrow="Portfolio" title="Previous works & sample projects">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {WORK.map((w) => (
-              <article
-                key={w.title}
-                 style={{ transitionDelay: `${(WORK.indexOf(w) % 3) * 100}ms` }}
-                 className="reveal-card card-surface interactive-card flex flex-col rounded-lg p-6 hover:scale-[1.03]"
-              >
-                <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-accent">
-                  {w.tag}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold">{w.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.body}</p>
-              </article>
-            ))}
-          </div>
+          <WorkGrid />
         </Section>
+
 
         {/* Testimonials */}
         <Section id="testimonials" eyebrow="Testimonials" title="Sample client feedback">
@@ -607,5 +679,95 @@ function Portfolio() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function WorkGrid() {
+  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
+
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoom(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
+
+  return (
+    <>
+      <div className="grid gap-6 md:grid-cols-2">
+        {WORK.map((w, i) => (
+          <article
+            key={w.title}
+            style={{ transitionDelay: `${(i % 2) * 100}ms` }}
+            className="reveal-card card-surface interactive-card flex flex-col overflow-hidden rounded-lg"
+          >
+            <div className={`grid gap-2 p-3 ${w.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
+              {w.images.map((img) => (
+                <button
+                  key={img.src}
+                  type="button"
+                  onClick={() => setZoom(img)}
+                  aria-label={`Enlarge screenshot: ${img.alt}`}
+                  className="group block overflow-hidden rounded-md border border-border bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="aspect-[16/10] w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-1 flex-col p-6 pt-3">
+              <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-accent">
+                {w.tag}
+              </span>
+              <h3 className="mt-4 text-lg font-semibold">{w.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.body}</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-foreground">Problem solved: </span>
+                {w.problem}
+              </p>
+              <ul className="mt-4 space-y-2">
+                {w.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {zoom && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoom.alt}
+          onClick={() => setZoom(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_oklab,var(--background)_88%,transparent)] p-4 backdrop-blur-sm"
+        >
+          <button
+            type="button"
+            aria-label="Close image"
+            onClick={() => setZoom(null)}
+            className="absolute right-4 top-4 rounded-full border border-border bg-card p-2 text-foreground hover:border-primary"
+          >
+            <X className="size-5" />
+          </button>
+          <img
+            src={zoom.src}
+            alt={zoom.alt}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
+          />
+        </div>
+      )}
+    </>
   );
 }
