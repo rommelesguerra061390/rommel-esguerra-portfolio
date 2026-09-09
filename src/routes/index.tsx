@@ -15,17 +15,14 @@ import {
   CheckCircle2,
   Menu,
   X,
-  Zap,
-  Share2,
-  Database,
   Sparkles,
   Palette,
-  FileText,
-  Blocks,
-  MessageSquare,
   Scissors,
   ExternalLink,
 } from "lucide-react";
+import { SiAirtable, SiMake, SiNotion, SiZapier } from "react-icons/si";
+import { FaGoogle, FaSlack } from "react-icons/fa6";
+import { BsOpenai } from "react-icons/bs";
 import asanaCrm from "@/assets/Asana_CRM_Engagement_Automation.png.asset.json";
 import contentRepurposing from "@/assets/Content_Repurposing_Project.png.asset.json";
 import universalLead from "@/assets/Universal_Lead_Management_and_Follow_ups.png.asset.json";
@@ -281,14 +278,14 @@ const SKILLS: Record<string, string[]> = {
 
 const TOOLS = [
   { name: "GoHighLevel", icon: Workflow, glow: true },
-  { name: "Zapier", icon: Zap, glow: true },
-  { name: "Make", icon: Share2, glow: true },
-  { name: "Airtable", icon: Database, glow: false },
-  { name: "OpenAI", icon: Sparkles, glow: true },
+  { name: "Zapier", icon: SiZapier, glow: true },
+  { name: "Make", icon: SiMake, glow: true },
+  { name: "Airtable", icon: SiAirtable, glow: false },
+  { name: "OpenAI", icon: BsOpenai, glow: true },
   { name: "Canva", icon: Palette, glow: false },
-  { name: "Notion", icon: FileText, glow: false },
-  { name: "Google Workspace", icon: Blocks, glow: false },
-  { name: "Slack", icon: MessageSquare, glow: false },
+  { name: "Notion", icon: SiNotion, glow: false },
+  { name: "Google Workspace", icon: FaGoogle, glow: false },
+  { name: "Slack", icon: FaSlack, glow: false },
   { name: "CapCut", icon: Scissors, glow: false },
 ];
 
