@@ -229,26 +229,19 @@ function Portfolio() {
       else revealObserver.observe(element);
     });
 
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActiveSection(visible.target.id);
-      },
-      { rootMargin: "-20% 0px -60% 0px", threshold: [0.05, 0.25, 0.5] },
-    );
-    document.querySelectorAll<HTMLElement>("[data-section]").forEach((section) => sectionObserver.observe(section));
-
     const updateProgress = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+      const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-section]"));
+      const current = sections.reduce<HTMLElement | undefined>((match, section) => {
+        return section.getBoundingClientRect().top <= 180 ? section : match;
+      }, sections[0]);
+      if (current?.id) setActiveSection(current.id);
     };
     updateProgress();
     window.addEventListener("scroll", updateProgress, { passive: true });
     return () => {
       revealObserver.disconnect();
-      sectionObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);
     };
   }, []);
