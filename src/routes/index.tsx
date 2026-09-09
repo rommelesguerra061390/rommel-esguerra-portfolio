@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Bot,
   Workflow,
@@ -18,6 +18,22 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Rommel Esguerra | GoHighLevel & AI Specialist" },
+      {
+        name: "description",
+        content: "Rommel Esguerra builds GoHighLevel systems, AI assistants, funnels and automations that convert leads into booked clients.",
+      },
+      { property: "og:title", content: "Rommel Esguerra | GoHighLevel & AI Specialist" },
+      {
+        property: "og:description",
+        content: "GoHighLevel systems and AI automations for agencies and service businesses.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Portfolio,
 });
 
@@ -179,7 +195,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 border-t border-border py-20 sm:py-24">
+    <section id={id} data-section className="reveal-section scroll-mt-24 border-t border-border py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">{eyebrow}</p>
         <h2 className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">{title}</h2>
@@ -191,10 +207,51 @@ function Section({
 
 function Portfolio() {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealElements = document.querySelectorAll<HTMLElement>(".reveal-section, .reveal-card");
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    revealElements.forEach((element) => {
+      if (reduceMotion) element.classList.add("is-visible");
+      else revealObserver.observe(element);
+    });
+
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+      const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-section]"));
+      const current = sections.reduce<HTMLElement | undefined>((match, section) => {
+        return section.getBoundingClientRect().top <= 180 ? section : match;
+      }, sections[0]);
+      if (current?.id) setActiveSection(current.id);
+    };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    return () => {
+      revealObserver.disconnect();
+      window.removeEventListener("scroll", updateProgress);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+      <div className="fixed inset-x-0 top-0 z-[60] h-0.5 bg-secondary" aria-hidden="true">
+        <div className="h-full origin-left bg-primary" style={{ transform: `scaleX(${scrollProgress})` }} />
+      </div>
+      <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="font-display text-lg font-semibold tracking-tight">
             Rommel<span className="text-primary"> Esguerra</span>
@@ -204,14 +261,16 @@ function Portfolio() {
               <a
                 key={href}
                 href={href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                data-active={activeSection === href.slice(1)}
+                aria-current={activeSection === href.slice(1) ? "location" : undefined}
+                className="nav-link text-sm text-muted-foreground hover:text-primary data-[active=true]:text-primary"
               >
                 {label}
               </a>
             ))}
             <a
               href="#contact"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+               className="cta-motion rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
             >
               Book a call
             </a>
@@ -231,7 +290,8 @@ function Portfolio() {
                 key={href}
                 href={href}
                 onClick={() => setOpen(false)}
-                className="block py-3 text-sm text-muted-foreground"
+                data-active={activeSection === href.slice(1)}
+                className="block py-3 text-sm text-muted-foreground transition-colors hover:text-primary data-[active=true]:text-primary"
               >
                 {label}
               </a>
@@ -246,7 +306,7 @@ function Portfolio() {
           <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:items-center">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-                <span className="size-2 rounded-full bg-accent" /> Available for new projects
+                <span className="size-2 rounded-full bg-[var(--success)] shadow-[0_0_10px_color-mix(in_oklab,var(--success)_70%,transparent)]" /> Available for new projects
               </span>
               <h1 className="mt-6 text-4xl font-semibold leading-[1.08] sm:text-6xl">
                 GoHighLevel systems and AI automations that turn leads into booked clients.
@@ -260,13 +320,13 @@ function Portfolio() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href="#contact"
-                  className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elegant)] transition-opacity hover:opacity-90"
+                  className="cta-motion rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elegant)]"
                 >
                   Work with me
                 </a>
                 <a
                   href="#work"
-                  className="rounded-full border border-border px-6 py-3 text-sm font-semibold transition-colors hover:bg-secondary"
+                  className="cta-motion rounded-lg border border-primary/60 px-6 py-3 text-sm font-semibold hover:text-primary-foreground"
                 >
                   See sample projects
                 </a>
@@ -285,7 +345,7 @@ function Portfolio() {
               </dl>
             </div>
 
-            <div className="card-surface rounded-3xl p-7">
+            <div className="card-surface interactive-card rounded-lg p-7">
               <div className="flex items-center gap-4">
                 <div className="flex size-16 items-center justify-center rounded-2xl bg-primary font-display text-xl font-bold text-primary-foreground">
                   RE
@@ -356,9 +416,10 @@ function Portfolio() {
             {SERVICES.map((s) => (
               <div
                 key={s.title}
-                className="card-surface group rounded-2xl p-6 transition-colors hover:border-primary/50"
+                 style={{ transitionDelay: `${(SERVICES.indexOf(s) % 3) * 100}ms` }}
+                 className="reveal-card card-surface interactive-card group rounded-lg p-6"
               >
-                <s.icon className="size-6 text-primary" />
+                 <s.icon className="icon-shift size-6 text-primary" />
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
               </div>
@@ -370,7 +431,7 @@ function Portfolio() {
         <Section id="experience" eyebrow="Experience" title="Work experience">
           <div className="space-y-6">
             {EXPERIENCE.map((e) => (
-              <div key={e.role} className="card-surface rounded-2xl p-6 sm:p-7">
+               <div key={e.role} className="card-surface interactive-card rounded-lg p-6 sm:p-7">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 className="text-lg font-semibold">{e.role}</h3>
                   <span className="text-xs uppercase tracking-wider text-primary">{e.period}</span>
@@ -395,7 +456,8 @@ function Portfolio() {
             {WORK.map((w) => (
               <article
                 key={w.title}
-                className="card-surface flex flex-col rounded-2xl p-6 transition-transform hover:-translate-y-1"
+                 style={{ transitionDelay: `${(WORK.indexOf(w) % 3) * 100}ms` }}
+                 className="reveal-card card-surface interactive-card flex flex-col rounded-lg p-6 hover:scale-[1.03]"
               >
                 <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-accent">
                   {w.tag}
@@ -414,7 +476,7 @@ function Portfolio() {
           </p>
           <div className="grid gap-5 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
-              <figure key={t.quote} className="card-surface rounded-2xl p-6">
+               <figure key={t.quote} className="card-surface interactive-card rounded-lg p-6">
                 <Quote className="size-6 text-primary" />
                 <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
                   “{t.quote}”
@@ -431,7 +493,7 @@ function Portfolio() {
         {/* Education & skills */}
         <Section id="skills" eyebrow="Background" title="Education, skills & tools">
           <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr]">
-            <div className="card-surface rounded-2xl p-6">
+             <div className="card-surface interactive-card rounded-lg p-6">
               <GraduationCap className="size-6 text-primary" />
               <h3 className="mt-4 text-lg font-semibold">Education</h3>
               <div className="mt-4 space-y-4 text-sm text-muted-foreground">
@@ -495,7 +557,7 @@ function Portfolio() {
               </div>
             </div>
             <form
-              className="card-surface space-y-4 rounded-2xl p-6"
+               className="card-surface space-y-4 rounded-lg p-6"
               onSubmit={(e) => {
                 e.preventDefault();
                 const f = e.currentTarget;
@@ -529,7 +591,7 @@ function Portfolio() {
               />
               <button
                 type="submit"
-                className="w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                 className="cta-motion w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
               >
                 Send message
               </button>
