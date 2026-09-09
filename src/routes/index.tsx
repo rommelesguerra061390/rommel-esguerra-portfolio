@@ -724,7 +724,7 @@ function ToolsCarousel() {
       const elapsed = Math.min(now - previous, 40);
       previous = now;
       if (!pausedRef.current) {
-        viewport.scrollLeft += elapsed * 0.025;
+        viewport.scrollLeft += elapsed * 0.05;
         const midpoint = viewport.scrollWidth / 2;
         if (viewport.scrollLeft >= midpoint) viewport.scrollLeft -= midpoint;
       }
