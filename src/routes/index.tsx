@@ -103,36 +103,113 @@ const EXPERIENCE = [
 
 const WORK = [
   {
-    title: "Agency Snapshot System",
-    tag: "GoHighLevel",
-    body: "A reusable sub-account snapshot with pipelines, calendars, review automations and onboarding forms — new clients live in under a day.",
+    title: "Zapier Asana CRM Engagement Automation",
+    tag: "Zapier",
+    body: "A 30-step Zap that watches Asana task updates and splits leads into Ready to Start, No Response, Quoted, Approved and Paid & Closed paths, each with its own Gmail follow-ups, delays, Google Drive folders and AI-written onboarding and recommendation emails.",
+    problem:
+      "Deal-stage follow-up lived in someone's head: leads sat unanswered between stages and onboarding emails were written from scratch every time.",
+    benefits: [
+      "Every pipeline stage triggers its own follow-up sequence automatically",
+      "Timed delays and filters stop duplicate or premature emails",
+      "Lead folders and content tasks are created without manual setup",
+    ],
+    images: [
+      { src: asanaCrm.url, alt: "Zapier workflow splitting Asana CRM stages into follow-up paths" },
+    ],
   },
   {
-    title: "AI Booking Assistant",
+    title: "Zapier Content Repurposing",
     tag: "AI Automation",
-    body: "Chat assistant that answers FAQs, qualifies leads and books directly into the calendar, with human handoff on complex requests.",
+    body: "New files dropped in a Google Drive folder are filtered, transcribed by AI, turned into a blog post, then looped and split into separate paths that publish tailored posts to Facebook Pages.",
+    problem:
+      "Recorded content sat unused because transcribing, rewriting and posting it to each channel was slow manual work.",
+    benefits: [
+      "One upload becomes a transcript, a blog post and social posts",
+      "Looping handles multiple content items in a single run",
+      "Path conditions keep each channel's format distinct",
+    ],
+    images: [
+      { src: contentRepurposing.url, alt: "Zapier content repurposing workflow from Drive upload to Facebook posts" },
+    ],
   },
   {
-    title: "Database Reactivation Campaign",
-    tag: "Workflows",
-    body: "SMS and email reactivation sequence for a cold list, with reply routing, opt-out handling and pipeline tracking.",
+    title: "Zapier Universal Lead Management and Follow Ups",
+    tag: "Lead Ops",
+    body: "New spreadsheet rows are validated for name and email, name-formatted, then fanned out to a Gmail follow-up, a Slack channel alert and a Trello card for the owning team.",
+    problem:
+      "Leads captured in a sheet were inconsistently formatted, often missing details, and reached the team late or not at all.",
+    benefits: [
+      "Incomplete rows are filtered out before anything is sent",
+      "Names are cleaned up so outreach looks professional",
+      "Email, Slack notification and task creation happen in one pass",
+    ],
+    images: [
+      { src: universalLead.url, alt: "Zapier workflow routing new spreadsheet leads to email, Slack and Trello" },
+    ],
   },
   {
-    title: "High-Converting Funnel Suite",
-    tag: "Funnels",
-    body: "Landing page, VSL page, application form and thank-you flow with tracking and instant lead notifications.",
+    title: "Make : Export bank Account Transaction From Xero To Asana",
+    tag: "Make",
+    body: "A Make scenario watching completed Asana tasks calls the Xero API, routes results through an iterator into Google Sheets, aggregates the rows into a file and uploads the attachment back to the originating Asana task before clearing the range.",
+    problem:
+      "Pulling account transactions out of Xero and attaching them to the right task was a repetitive copy-paste-export chore.",
+    benefits: [
+      "Transaction exports run on schedule instead of on request",
+      "Data is collected in Sheets then attached back to Asana automatically",
+      "Range clearing keeps each run clean and repeatable",
+    ],
+    images: [
+      { src: xeroAsana.url, alt: "Make scenario exporting Xero transactions into Google Sheets and Asana" },
+    ],
   },
   {
-    title: "Review & Reputation Engine",
-    tag: "Automation",
-    body: "Post-service review requests with smart timing, escalation for unhappy clients and reporting on rating growth.",
+    title: "AI Lead Qualification & Auto-Response Agent",
+    tag: "AI Automation",
+    body: "Google Forms submissions are scored and categorised by AI, logged as a spreadsheet row, then answered with a Gmail response matched to the lead's category.",
+    problem:
+      "Form enquiries arrived unsorted, so good leads waited in the same queue as low-intent ones.",
+    benefits: [
+      "Each enquiry is scored and categorised the moment it lands",
+      "A record is kept in Sheets for tracking and review",
+      "Leads receive an immediate, relevant reply",
+    ],
+    images: [
+      { src: aiLeadQual.url, alt: "Zapier AI agent scoring form leads and sending an automatic email reply" },
+    ],
   },
   {
-    title: "Ops Dashboard & Integrations",
-    tag: "Integrations",
-    body: "Make and webhook pipelines syncing CRM, sheets and billing tools into one dashboard for daily decisions.",
+    title: "Go High Level Residential Cleaning Automation",
+    tag: "GoHighLevel",
+    body: "Two connected GoHighLevel workflows: a new-lead response flow that tags the contact, creates an opportunity, sends SMS and email then branches on high intent versus not ready; and an appointment flow that confirms bookings, assigns a user, notifies the team and sends timed SMS and email reminders with a rescheduled condition.",
+    problem:
+      "Cleaning enquiries and bookings depended on staff remembering to reply, chase and remind — with no-shows and cold leads as the result.",
+    benefits: [
+      "Instant SMS and email response to every new enquiry",
+      "High-intent leads are tagged and escalated to the team",
+      "Confirmations, reminders and reschedule handling run automatically",
+    ],
+    images: [
+      { src: ghlNewLead.url, alt: "GoHighLevel new lead response workflow with intent branching" },
+      { src: ghlAppointments.url, alt: "GoHighLevel appointment confirmation and reminder workflow" },
+    ],
+  },
+  {
+    title: "AI-Powered Lead Qualification & Sales Follow-Up Automation",
+    tag: "GoHighLevel",
+    body: "A quote follow-up workflow triggered by contact tag: email, wait, then branch on quote-booked versus quote-sent, running a timed SMS, email and tag sequence before creating or updating the opportunity.",
+    problem:
+      "Sent quotes went quiet because nobody had time to chase them on a consistent schedule.",
+    benefits: [
+      "Every quote gets a structured multi-touch follow-up",
+      "Booked quotes exit the sequence via tag conditions",
+      "Pipeline opportunities stay updated as contacts progress",
+    ],
+    images: [
+      { src: ghlQuote.url, alt: "GoHighLevel quote follow-up workflow with booked and sent branches" },
+    ],
   },
 ];
+
 
 const TESTIMONIALS = [
   {
