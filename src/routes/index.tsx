@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Bot,
   Workflow,
@@ -15,6 +15,16 @@ import {
   CheckCircle2,
   Menu,
   X,
+  Zap,
+  Share2,
+  Database,
+  Sparkles,
+  Palette,
+  FileText,
+  Blocks,
+  MessageSquare,
+  Scissors,
+  ExternalLink,
 } from "lucide-react";
 import asanaCrm from "@/assets/Asana_CRM_Engagement_Automation.png.asset.json";
 import contentRepurposing from "@/assets/Content_Repurposing_Project.png.asset.json";
@@ -24,6 +34,7 @@ import aiLeadQual from "@/assets/AI_Lead_Qualification_Auto-Response_Agent_ZAP_M
 import ghlNewLead from "@/assets/Go_high_level_New_lead_Update_Automation.png.asset.json";
 import ghlQuote from "@/assets/Go_high_level_Quote_Follow_up_Automation.png.asset.json";
 import ghlAppointments from "@/assets/GO_high_level_Cleaning_Appointment_Confirmation_and_Reminders_automation.png.asset.json";
+import profilePicture from "@/assets/PORTFOLIO_PROFILE_PICTURE.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -268,6 +279,19 @@ const SKILLS: Record<string, string[]> = {
   ],
 };
 
+const TOOLS = [
+  { name: "GoHighLevel", icon: Workflow, glow: true },
+  { name: "Zapier", icon: Zap, glow: true },
+  { name: "Make", icon: Share2, glow: true },
+  { name: "Airtable", icon: Database, glow: false },
+  { name: "OpenAI", icon: Sparkles, glow: true },
+  { name: "Canva", icon: Palette, glow: false },
+  { name: "Notion", icon: FileText, glow: false },
+  { name: "Google Workspace", icon: Blocks, glow: false },
+  { name: "Slack", icon: MessageSquare, glow: false },
+  { name: "CapCut", icon: Scissors, glow: false },
+];
+
 function Section({
   id,
   eyebrow,
@@ -416,53 +440,50 @@ function Portfolio() {
                   See sample projects
                 </a>
               </div>
-              <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6">
-                {[
-                  ["Systems built", "50+"],
-                  ["Automations shipped", "200+"],
-                  ["Focus", "GHL + AI"],
-                ].map(([k, v]) => (
-                  <div key={k}>
-                    <dt className="text-xs uppercase tracking-wider text-muted-foreground">{k}</dt>
-                    <dd className="mt-1 font-display text-2xl font-semibold text-primary">{v}</dd>
-                  </div>
-                ))}
-              </dl>
             </div>
 
-            <div className="card-surface interactive-card rounded-lg p-7">
-              <div className="flex items-center gap-4">
-                <div className="flex size-16 items-center justify-center rounded-2xl bg-primary font-display text-xl font-bold text-primary-foreground">
-                  RE
-                </div>
+            <div className="card-surface interactive-card overflow-hidden rounded-lg">
+              <div className="aspect-[4/3] overflow-hidden border-b border-border sm:aspect-[5/4] lg:aspect-[4/3]">
+                <img
+                  src={profilePicture.url}
+                  alt="Rommel Esguerra, GoHighLevel and AI automation specialist"
+                  className="h-full w-full object-cover object-[center_24%]"
+                  fetchPriority="high"
+                />
+              </div>
+              <div className="p-6 sm:p-7">
                 <div>
                   <p className="font-display text-lg font-semibold">Rommel Esguerra</p>
                   <p className="text-sm text-muted-foreground">
                     GoHighLevel &amp; AI Automation Specialist
                   </p>
                 </div>
-              </div>
-              <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+              <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-center gap-3">
-                  <Mail className="size-4 text-primary" /> your@email.com
+                  <Mail className="size-4 shrink-0 text-primary" />
+                  <a className="break-all hover:text-primary" href="mailto:rommelesguerra061390@gmail.com">rommelesguerra061390@gmail.com</a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="size-4 text-primary" /> +63 000 000 0000
+                  <Phone className="size-4 shrink-0 text-primary" />
+                  <a className="hover:text-primary" href="tel:09939155488">09939155488</a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <MapPin className="size-4 text-primary" /> Philippines · Working remotely
+                  <MapPin className="size-4 shrink-0 text-primary" /> Philippines · Working remotely
                 </li>
                 <li className="flex items-center gap-3">
-                  <Linkedin className="size-4 text-primary" /> linkedin.com/in/your-profile
+                  <Linkedin className="size-4 shrink-0 text-primary" />
+                  <a className="hover:text-primary" href="https://linkedin.com/in/rommel-esguerra-13a298160" target="_blank" rel="noreferrer">LinkedIn</a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Globe className="size-4 text-primary" /> your-website.com
+                  <Globe className="size-4 shrink-0 text-primary" />
+                  <a className="hover:text-primary" href="https://v2.onlinejobs.ph/jobseekers/info/1327980" target="_blank" rel="noreferrer">OnlineJobs.ph</a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <ExternalLink className="size-4 shrink-0 text-primary" />
+                  <a className="hover:text-primary" href="https://www.upwork.com/freelancers/~01eca9cfb92b8f48b3?mp_source=share" target="_blank" rel="noreferrer">Upwork</a>
                 </li>
               </ul>
-              <p className="mt-6 rounded-xl bg-secondary px-4 py-3 text-xs text-muted-foreground">
-                Placeholder contact details — send me your real email, phone, and links and
-                I&apos;ll swap them in.
-              </p>
+              </div>
             </div>
           </div>
         </section>
@@ -511,6 +532,8 @@ function Portfolio() {
             ))}
           </div>
         </Section>
+
+        <ToolsCarousel />
 
         {/* Experience */}
         <Section id="experience" eyebrow="Experience" title="Work experience">
@@ -612,19 +635,25 @@ function Portfolio() {
                 clear recommendation for the systems worth building first.
               </p>
               <div className="mt-8 space-y-3 text-sm">
-                <a href="mailto:your@email.com" className="flex items-center gap-3 hover:text-primary">
-                  <Mail className="size-4 text-primary" /> your@email.com
+                <a href="mailto:rommelesguerra061390@gmail.com" className="flex items-center gap-3 hover:text-primary">
+                  <Mail className="size-4 text-primary" /> rommelesguerra061390@gmail.com
                 </a>
-                <a href="tel:+630000000000" className="flex items-center gap-3 hover:text-primary">
-                  <Phone className="size-4 text-primary" /> +63 000 000 0000
+                <a href="tel:09939155488" className="flex items-center gap-3 hover:text-primary">
+                  <Phone className="size-4 text-primary" /> 09939155488
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/in/rommel-esguerra-13a298160"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-3 hover:text-primary"
                 >
                   <Linkedin className="size-4 text-primary" /> LinkedIn profile
+                </a>
+                <a href="https://v2.onlinejobs.ph/jobseekers/info/1327980" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-primary">
+                  <Globe className="size-4 text-primary" /> OnlineJobs.ph profile
+                </a>
+                <a href="https://www.upwork.com/freelancers/~01eca9cfb92b8f48b3?mp_source=share" target="_blank" rel="noreferrer" className="flex items-center gap-3 hover:text-primary">
+                  <ExternalLink className="size-4 text-primary" /> Upwork profile
                 </a>
               </div>
             </div>
@@ -634,7 +663,7 @@ function Portfolio() {
                 e.preventDefault();
                 const f = e.currentTarget;
                 const data = new FormData(f);
-                window.location.href = `mailto:your@email.com?subject=${encodeURIComponent(
+                window.location.href = `mailto:rommelesguerra061390@gmail.com?subject=${encodeURIComponent(
                   `Project inquiry from ${data.get("name")}`,
                 )}&body=${encodeURIComponent(String(data.get("message")))}`;
               }}
@@ -679,6 +708,76 @@ function Portfolio() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function ToolsCarousel() {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    let previous = performance.now();
+    const animate = (now: number) => {
+      const elapsed = Math.min(now - previous, 40);
+      previous = now;
+      if (!pausedRef.current) {
+        viewport.scrollLeft += elapsed * 0.025;
+        const midpoint = viewport.scrollWidth / 2;
+        if (viewport.scrollLeft >= midpoint) viewport.scrollLeft -= midpoint;
+      }
+      frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const pause = () => { pausedRef.current = true; };
+  const resume = () => { pausedRef.current = false; };
+
+  return (
+    <section data-section className="reveal-section border-t border-border bg-secondary/40 py-20 sm:py-24" aria-labelledby="tools-heading">
+      <div className="mx-auto max-w-6xl px-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">TOOLS &amp; TECHNOLOGIES</p>
+        <h2 id="tools-heading" className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">Powered by the tools I use to build smarter systems.</h2>
+        <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">I combine CRM, automation, AI, marketing, and productivity tools to create efficient business workflows.</p>
+      </div>
+      <div className="tools-mask mx-auto mt-10 max-w-[90rem]">
+        <div
+          ref={viewportRef}
+          className="tools-viewport"
+          role="region"
+          aria-label="Tools and technologies carousel"
+          tabIndex={0}
+          onMouseEnter={pause}
+          onMouseLeave={resume}
+          onFocus={pause}
+          onBlur={resume}
+          onTouchStart={pause}
+          onTouchEnd={resume}
+        >
+          <div className="flex w-max gap-4 px-5 py-5">
+            {[...TOOLS, ...TOOLS].map((tool, index) => {
+              const ToolIcon = tool.icon;
+              return (
+                <div
+                  key={`${tool.name}-${index}`}
+                  aria-hidden={index >= TOOLS.length}
+                  className={`tool-card group flex w-44 shrink-0 items-center gap-3 rounded-lg border border-border bg-card p-4 ${tool.glow ? "tool-card-ai" : ""}`}
+                >
+                  <span className="tool-icon flex size-11 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
+                    <ToolIcon className="size-5" aria-hidden="true" />
+                  </span>
+                  <span className="text-sm font-semibold text-foreground">{tool.name}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
