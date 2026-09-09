@@ -681,3 +681,93 @@ function Portfolio() {
     </div>
   );
 }
+
+function WorkGrid() {
+  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
+
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoom(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
+
+  return (
+    <>
+      <div className="grid gap-6 md:grid-cols-2">
+        {WORK.map((w, i) => (
+          <article
+            key={w.title}
+            style={{ transitionDelay: `${(i % 2) * 100}ms` }}
+            className="reveal-card card-surface interactive-card flex flex-col overflow-hidden rounded-lg"
+          >
+            <div className={`grid gap-2 p-3 ${w.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
+              {w.images.map((img) => (
+                <button
+                  key={img.src}
+                  type="button"
+                  onClick={() => setZoom(img)}
+                  aria-label={`Enlarge screenshot: ${img.alt}`}
+                  className="group block overflow-hidden rounded-md border border-border bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="aspect-[16/10] w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-1 flex-col p-6 pt-3">
+              <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-accent">
+                {w.tag}
+              </span>
+              <h3 className="mt-4 text-lg font-semibold">{w.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.body}</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-foreground">Problem solved: </span>
+                {w.problem}
+              </p>
+              <ul className="mt-4 space-y-2">
+                {w.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {zoom && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoom.alt}
+          onClick={() => setZoom(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_oklab,var(--background)_88%,transparent)] p-4 backdrop-blur-sm"
+        >
+          <button
+            type="button"
+            aria-label="Close image"
+            onClick={() => setZoom(null)}
+            className="absolute right-4 top-4 rounded-full border border-border bg-card p-2 text-foreground hover:border-primary"
+          >
+            <X className="size-5" />
+          </button>
+          <img
+            src={zoom.src}
+            alt={zoom.alt}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
+          />
+        </div>
+      )}
+    </>
+  );
+}
