@@ -172,6 +172,49 @@
   transform: translateY(0);
 }
 
+.tools-mask {
+  mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+}
+
+.tools-viewport {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  touch-action: pan-x;
+}
+
+.tools-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.tool-card {
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.tool-card:hover,
+.tool-card:focus-within {
+  transform: translateY(-4px) scale(1.04);
+  border-color: var(--primary);
+  box-shadow: 0 14px 28px -16px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+.tool-icon {
+  transition: color 240ms ease, filter 240ms ease, border-color 240ms ease;
+}
+
+.tool-card:hover .tool-icon,
+.tool-card:focus-within .tool-icon {
+  color: var(--primary-hover);
+  border-color: color-mix(in oklab, var(--primary) 60%, var(--border));
+  filter: brightness(1.12);
+}
+
+.tool-card-ai .tool-icon {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 32%, transparent));
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -187,6 +230,11 @@
   .reveal-section,
   .reveal-card {
     opacity: 1;
+    transform: none;
+  }
+
+  .tool-card:hover,
+  .tool-card:focus-within {
     transform: none;
   }
 }
