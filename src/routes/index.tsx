@@ -16,6 +16,14 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import asanaCrm from "@/assets/Asana_CRM_Engagement_Automation.png.asset.json";
+import contentRepurposing from "@/assets/Content_Repurposing_Project.png.asset.json";
+import universalLead from "@/assets/Universal_Lead_Management_and_Follow_ups.png.asset.json";
+import xeroAsana from "@/assets/Export_Account_Transactions_from_Xero_Upload_CSV_to_Asana.png.asset.json";
+import aiLeadQual from "@/assets/AI_Lead_Qualification_Auto-Response_Agent_ZAP_MAPPING.png.asset.json";
+import ghlNewLead from "@/assets/Go_high_level_New_lead_Update_Automation.png.asset.json";
+import ghlQuote from "@/assets/Go_high_level_Quote_Follow_up_Automation.png.asset.json";
+import ghlAppointments from "@/assets/GO_high_level_Cleaning_Appointment_Confirmation_and_Reminders_automation.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
