@@ -537,22 +537,9 @@ function Portfolio() {
 
         {/* Work */}
         <Section id="work" eyebrow="Portfolio" title="Previous works & sample projects">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {WORK.map((w) => (
-              <article
-                key={w.title}
-                 style={{ transitionDelay: `${(WORK.indexOf(w) % 3) * 100}ms` }}
-                 className="reveal-card card-surface interactive-card flex flex-col rounded-lg p-6 hover:scale-[1.03]"
-              >
-                <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-accent">
-                  {w.tag}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold">{w.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.body}</p>
-              </article>
-            ))}
-          </div>
+          <WorkGrid />
         </Section>
+
 
         {/* Testimonials */}
         <Section id="testimonials" eyebrow="Testimonials" title="Sample client feedback">
