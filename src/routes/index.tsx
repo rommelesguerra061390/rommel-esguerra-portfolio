@@ -733,31 +733,84 @@ function Portfolio() {
   );
 }
 
-function ToolsCarousel() {
+function ToolRow({
+  tools,
+  pausedRef,
+  reverse,
+  label,
+}: {
+  tools: Tool[];
+  pausedRef: React.RefObject<boolean>;
+  reverse?: boolean;
+  label: string;
+}) {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const pausedRef = useRef(false);
 
   useEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (reverse) viewport.scrollLeft = viewport.scrollWidth / 2;
     let frame = 0;
     let previous = performance.now();
     const animate = (now: number) => {
       const elapsed = Math.min(now - previous, 40);
       previous = now;
       if (!pausedRef.current) {
-        viewport.scrollLeft += elapsed * 0.05;
         const midpoint = viewport.scrollWidth / 2;
-        if (viewport.scrollLeft >= midpoint) viewport.scrollLeft -= midpoint;
+        if (reverse) {
+          viewport.scrollLeft -= elapsed * 0.05;
+          if (viewport.scrollLeft <= 0) viewport.scrollLeft += midpoint;
+        } else {
+          viewport.scrollLeft += elapsed * 0.05;
+          if (viewport.scrollLeft >= midpoint) viewport.scrollLeft -= midpoint;
+        }
       }
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
-  }, []);
+  }, [pausedRef, reverse]);
 
   const pause = () => { pausedRef.current = true; };
   const resume = () => { pausedRef.current = false; };
+
+  return (
+    <div
+      ref={viewportRef}
+      className="tools-viewport"
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onFocus={pause}
+      onBlur={resume}
+      onTouchStart={pause}
+      onTouchEnd={resume}
+    >
+      <div className="flex w-max gap-4 px-5 py-2">
+        {[...tools, ...tools].map((tool, index) => {
+          const ToolIcon = tool.icon;
+          return (
+            <div
+              key={`${tool.name}-${index}`}
+              aria-hidden={index >= tools.length}
+              className={`tool-card group flex w-52 shrink-0 items-center gap-3 rounded-lg border border-border bg-card p-4 ${tool.glow ? "tool-card-ai" : ""}`}
+            >
+              <span className="tool-icon flex size-11 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
+                <ToolIcon className="size-5" aria-hidden="true" />
+              </span>
+              <span className="text-sm font-semibold text-foreground">{tool.name}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ToolsCarousel() {
+  const pausedRef = useRef(false);
 
   return (
     <section data-section className="reveal-section border-t border-border bg-secondary/40 py-20 sm:py-24" aria-labelledby="tools-heading">
@@ -766,38 +819,9 @@ function ToolsCarousel() {
         <h2 id="tools-heading" className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">Powered by the tools I use to build smarter systems.</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">I combine CRM, automation, AI, marketing, and productivity tools to create efficient business workflows.</p>
       </div>
-      <div className="tools-mask mx-auto mt-10 max-w-[90rem]">
-        <div
-          ref={viewportRef}
-          className="tools-viewport"
-          role="region"
-          aria-label="Tools and technologies carousel"
-          tabIndex={0}
-          onMouseEnter={pause}
-          onMouseLeave={resume}
-          onFocus={pause}
-          onBlur={resume}
-          onTouchStart={pause}
-          onTouchEnd={resume}
-        >
-          <div className="flex w-max gap-4 px-5 py-5">
-            {[...TOOLS, ...TOOLS].map((tool, index) => {
-              const ToolIcon = tool.icon;
-              return (
-                <div
-                  key={`${tool.name}-${index}`}
-                  aria-hidden={index >= TOOLS.length}
-                  className={`tool-card group flex w-44 shrink-0 items-center gap-3 rounded-lg border border-border bg-card p-4 ${tool.glow ? "tool-card-ai" : ""}`}
-                >
-                  <span className="tool-icon flex size-11 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
-                    <ToolIcon className="size-5" aria-hidden="true" />
-                  </span>
-                  <span className="text-sm font-semibold text-foreground">{tool.name}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className="tools-mask mx-auto mt-10 flex max-w-[90rem] flex-col gap-4">
+        <ToolRow tools={TOOLS_ROW_ONE} pausedRef={pausedRef} label="Tools and technologies carousel, row one" />
+        <ToolRow tools={TOOLS_ROW_TWO} pausedRef={pausedRef} reverse label="Tools and technologies carousel, row two" />
       </div>
     </section>
   );
