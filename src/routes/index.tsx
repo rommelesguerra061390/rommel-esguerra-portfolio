@@ -750,6 +750,7 @@ function ToolRow({
     const viewport = viewportRef.current;
     if (!viewport || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (reverse) viewport.scrollLeft = viewport.scrollWidth / 2;
+    const SPEED_PX_PER_MS = 0.015; // ~15 px/sec — very gentle, readable motion
     let frame = 0;
     let previous = performance.now();
     const animate = (now: number) => {
@@ -758,10 +759,10 @@ function ToolRow({
       if (!pausedRef.current) {
         const midpoint = viewport.scrollWidth / 2;
         if (reverse) {
-          viewport.scrollLeft -= elapsed * 0.05;
+          viewport.scrollLeft -= elapsed * SPEED_PX_PER_MS;
           if (viewport.scrollLeft <= 0) viewport.scrollLeft += midpoint;
         } else {
-          viewport.scrollLeft += elapsed * 0.05;
+          viewport.scrollLeft += elapsed * SPEED_PX_PER_MS;
           if (viewport.scrollLeft >= midpoint) viewport.scrollLeft -= midpoint;
         }
       }
