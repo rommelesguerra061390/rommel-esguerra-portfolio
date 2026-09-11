@@ -756,7 +756,6 @@ function ToolRow({
     const animate = (now: number) => {
       const elapsed = Math.min(now - previous, 40);
       previous = now;
-      console.log(`[${label}] animate fired, elapsed=${elapsed.toFixed(1)}, paused=${pausedRef.current}, scrollLeft=${viewport.scrollLeft.toFixed(1)}`);
       if (!pausedRef.current) {
         const midpoint = viewport.scrollWidth / 2;
         if (reverse) {
@@ -770,11 +769,8 @@ function ToolRow({
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);
-    return () => {
-      console.log(`[${label}] effect cleanup`);
-      cancelAnimationFrame(frame);
-    };
-  }, [pausedRef, reverse, label]);
+    return () => cancelAnimationFrame(frame);
+  }, [pausedRef, reverse]);
 
   const pause = () => { pausedRef.current = true; };
   const resume = () => { pausedRef.current = false; };
