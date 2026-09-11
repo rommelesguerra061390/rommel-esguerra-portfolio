@@ -19,9 +19,15 @@ import {
   Palette,
   Scissors,
   ExternalLink,
+  Heart,
+  Users,
+  Database,
+  Target,
+  CalendarDays,
+  Table2,
 } from "lucide-react";
-import { SiAirtable, SiMake, SiNotion, SiZapier } from "react-icons/si";
-import { FaGoogle, FaSlack } from "react-icons/fa6";
+import { SiAirtable, SiClaude, SiFacebook, SiGooglecalendar, SiGooglesheets, SiMake, SiMessenger, SiNotion, SiZapier } from "react-icons/si";
+import { FaGoogle, FaMicrosoft, FaSlack } from "react-icons/fa6";
 import { BsOpenai } from "react-icons/bs";
 import asanaCrm from "@/assets/Asana_CRM_Engagement_Automation.png.asset.json";
 import contentRepurposing from "@/assets/Content_Repurposing_Project.png.asset.json";
@@ -276,17 +282,36 @@ const SKILLS: Record<string, string[]> = {
   ],
 };
 
-const TOOLS = [
+type Tool = { name: string; icon: ComponentType<{ className?: string }>; glow: boolean };
+
+const TOOLS_ROW_ONE: Tool[] = [
   { name: "GoHighLevel", icon: Workflow, glow: true },
   { name: "Zapier", icon: SiZapier, glow: true },
   { name: "Make", icon: SiMake, glow: true },
-  { name: "Airtable", icon: SiAirtable, glow: false },
-  { name: "OpenAI", icon: BsOpenai, glow: true },
+  { name: "AI Automation & Agents", icon: Sparkles, glow: true },
+  { name: "Claude", icon: SiClaude, glow: true },
+  { name: "ChatGPT", icon: BsOpenai, glow: true },
+  { name: "Lovable.dev", icon: Heart, glow: true },
+  { name: "OpenAI API", icon: Bot, glow: true },
   { name: "Canva", icon: Palette, glow: false },
-  { name: "Notion", icon: SiNotion, glow: false },
-  { name: "Google Workspace", icon: FaGoogle, glow: false },
-  { name: "Slack", icon: FaSlack, glow: false },
   { name: "CapCut", icon: Scissors, glow: false },
+  { name: "Google Workspace", icon: FaGoogle, glow: false },
+  { name: "Microsoft Teams", icon: Users, glow: false },
+];
+
+const TOOLS_ROW_TWO: Tool[] = [
+  { name: "Slack", icon: FaSlack, glow: false },
+  { name: "Notion", icon: SiNotion, glow: false },
+  { name: "Airtable", icon: SiAirtable, glow: false },
+  { name: "Facebook / Meta", icon: SiFacebook, glow: false },
+  { name: "Messenger", icon: SiMessenger, glow: false },
+  { name: "Email Marketing", icon: Mail, glow: false },
+  { name: "Lead Generation", icon: Target, glow: false },
+  { name: "Microsoft Office", icon: FaMicrosoft, glow: false },
+  { name: "Google Sheets", icon: SiGooglesheets, glow: false },
+  { name: "Google Calendar", icon: SiGooglecalendar, glow: false },
+  { name: "CRM Systems", icon: Table2, glow: false },
+  { name: "Database Management", icon: Database, glow: false },
 ];
 
 function Section({
