@@ -996,3 +996,115 @@ function WorkGrid() {
     </>
   );
 }
+
+function CertificationsGrid() {
+  const [active, setActive] = useState<(typeof CERTIFICATIONS)[number] | null>(null);
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active]);
+
+  return (
+    <>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {CERTIFICATIONS.map((c) => (
+          <article
+            key={c.title}
+            className={`card-surface interactive-card flex flex-col rounded-lg p-6 ${c.ai ? "tool-card-ai" : ""}`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              {c.ai ? (
+                <ShieldCheck className="size-6 text-accent" />
+              ) : (
+                <Award className="size-6 text-primary" />
+              )}
+              <span
+                className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider ${
+                  c.ai
+                    ? "border-accent/50 text-accent"
+                    : "border-border text-muted-foreground"
+                }`}
+              >
+                {c.ai ? "AI / MCP" : "Automation"}
+              </span>
+            </div>
+            <h3 className="mt-4 text-base font-semibold leading-snug">{c.title}</h3>
+            <p className="mt-1 text-xs uppercase tracking-wider text-primary">Zapier</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
+            <p className="mt-4 border-t border-border pt-4 text-sm text-muted-foreground">
+              <span className="block text-xs font-semibold uppercase tracking-wider text-foreground">
+                Purpose for clients
+              </span>
+              {c.purpose}
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setActive(c)}
+                className="cta-motion rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+              >
+                View certificate
+              </button>
+              <a
+                href={c.file}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                Open PDF
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {active && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${active.title} certificate`}
+          className="fixed inset-0 z-50 flex flex-col bg-background/95 p-4 backdrop-blur-sm sm:p-8"
+          onClick={() => setActive(null)}
+        >
+          <div
+            className="mx-auto flex h-full w-full max-w-4xl flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 pb-3">
+              <div>
+                <h3 className="text-base font-semibold">{active.title}</h3>
+                <p className="text-xs text-muted-foreground">Issued by Zapier</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActive(null)}
+                aria-label="Close certificate preview"
+                className="rounded-lg border border-border p-2 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+            <iframe
+              src={active.file}
+              title={`${active.title} certificate`}
+              className="min-h-0 flex-1 rounded-lg border border-border bg-card"
+            />
+            <a
+              href={active.file}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 self-start text-xs font-semibold text-primary hover:underline"
+            >
+              Open in a new tab
+            </a>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
