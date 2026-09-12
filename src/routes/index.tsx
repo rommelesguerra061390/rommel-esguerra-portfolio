@@ -25,6 +25,8 @@ import {
   Target,
   CalendarDays,
   Table2,
+  Award,
+  ShieldCheck,
 } from "lucide-react";
 import { SiAirtable, SiClaude, SiFacebook, SiGooglecalendar, SiGooglesheets, SiMake, SiMessenger, SiNotion, SiZapier } from "react-icons/si";
 import { FaGoogle, FaMicrosoft, FaSlack } from "react-icons/fa6";
@@ -714,6 +716,15 @@ function Portfolio() {
               ))}
             </div>
           </div>
+        </Section>
+
+        {/* Certifications */}
+        <Section
+          id="certifications"
+          eyebrow="Credentials"
+          title="Certifications & credentials"
+        >
+          <CertificationsGrid />
         </Section>
 
         {/* Contact */}
