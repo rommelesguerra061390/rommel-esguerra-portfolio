@@ -38,6 +38,14 @@ import ghlNewLead from "@/assets/Go_high_level_New_lead_Update_Automation.png.as
 import ghlQuote from "@/assets/Go_high_level_Quote_Follow_up_Automation.png.asset.json";
 import ghlAppointments from "@/assets/GO_high_level_Cleaning_Appointment_Confirmation_and_Reminders_automation.png.asset.json";
 import profilePicture from "@/assets/PORTFOLIO_PROFILE_PICTURE.png.asset.json";
+import basicZaps from "@/assets/Zapier_certificate-Rommel-Esguerra-Building-Basic-Zaps.pdf.asset.json";
+import intermediateZaps from "@/assets/Zapier_certificate-Rommel-Esguerra-Building-Intermediate-Zaps.pdf.asset.json";
+import aiAgents from "@/assets/Zapier_certificate-Rommel-Esguerra-Building-AI-Agents.pdf.asset.json";
+import jumpstart from "@/assets/Zapier_certificate-Rommel-Esguerra-Jumpstart.pdf.asset.json";
+import whatIsMcp from "@/assets/certificate-Rommel-Esguerra-What-is-Zapier-MCP-.pdf.asset.json";
+import usingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Using-Zapier-MCP.pdf.asset.json";
+import governingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Governing-Zapier-MCP.pdf.asset.json";
+import generalCert from "@/assets/Rommel_Esguerra_Zapier.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,8 +73,68 @@ const NAV = [
   ["Experience", "#experience"],
   ["Work", "#work"],
   ["Testimonials", "#testimonials"],
+  ["Certificates", "#certifications"],
   ["Contact", "#contact"],
 ] as const;
+
+const CERTIFICATIONS = [
+  {
+    title: "Building Basic Zaps",
+    file: basicZaps.url,
+    ai: false,
+    body: "Core trigger-action automation, app connectivity and foundational workflow logic.",
+    purpose: "Ensures rock-solid, error-free standard integrations.",
+  },
+  {
+    title: "Building Intermediate Zaps",
+    file: intermediateZaps.url,
+    ai: false,
+    body: "Multi-step workflows, conditional branching (Paths), filters, data formatting and error handling.",
+    purpose: "Automates complex business processes with resilience.",
+  },
+  {
+    title: "Building AI Agents",
+    file: aiAgents.url,
+    ai: true,
+    body: "Designing autonomous AI agents, memory handling, LLM prompting and tool execution.",
+    purpose: "Enables 24/7 AI-driven support and qualification workflows.",
+  },
+  {
+    title: "Zapier Jumpstart",
+    file: jumpstart.url,
+    ai: false,
+    body: "Accelerated workflow development and automation fundamentals.",
+    purpose: "Rapid delivery and immediate ROI for new client systems.",
+  },
+  {
+    title: "What is Zapier MCP?",
+    file: whatIsMcp.url,
+    ai: true,
+    body: "Fundamentals of the Model Context Protocol and integrating LLMs with external tools via Zapier.",
+    purpose: "Bridges modern AI reasoning with actionable business tooling.",
+  },
+  {
+    title: "Using Zapier MCP",
+    file: usingMcp.url,
+    ai: true,
+    body: "Practical implementation of Zapier MCP servers and actions connected to AI models.",
+    purpose: "Lets custom AI agents securely trigger workflows and fetch data across hundreds of apps.",
+  },
+  {
+    title: "Governing Zapier MCP",
+    file: governingMcp.url,
+    ai: true,
+    body: "Security, compliance, permissions and safe governance for AI-connected automations.",
+    purpose: "Guarantees secure, controlled AI interactions without unauthorized data exposure.",
+  },
+  {
+    title: "Zapier Certified Automation Specialist",
+    file: generalCert.url,
+    ai: false,
+    body: "Overall verification of Zapier automation expertise across triggers, logic and integrations.",
+    purpose: "Proves verified domain mastery in building scalable systems.",
+  },
+];
 
 const SERVICES = [
   {
