@@ -25,6 +25,8 @@ import {
   Target,
   CalendarDays,
   Table2,
+  Award,
+  ShieldCheck,
 } from "lucide-react";
 import { SiAirtable, SiClaude, SiFacebook, SiGooglecalendar, SiGooglesheets, SiMake, SiMessenger, SiNotion, SiZapier } from "react-icons/si";
 import { FaGoogle, FaMicrosoft, FaSlack } from "react-icons/fa6";
@@ -38,6 +40,14 @@ import ghlNewLead from "@/assets/Go_high_level_New_lead_Update_Automation.png.as
 import ghlQuote from "@/assets/Go_high_level_Quote_Follow_up_Automation.png.asset.json";
 import ghlAppointments from "@/assets/GO_high_level_Cleaning_Appointment_Confirmation_and_Reminders_automation.png.asset.json";
 import profilePicture from "@/assets/PORTFOLIO_PROFILE_PICTURE.png.asset.json";
+import basicZaps from "@/assets/Zapier_certificate-Rommel-Esguerra-Building-Basic-Zaps.pdf.asset.json";
+import intermediateZaps from "@/assets/Zapier_certificate-Rommel-Esguerra-Building-Intermediate-Zaps.pdf.asset.json";
+import aiAgents from "@/assets/Zapier_certificate-Rommel-Esguerra-Building-AI-Agents.pdf.asset.json";
+import jumpstart from "@/assets/Zapier_certificate-Rommel-Esguerra-Jumpstart.pdf.asset.json";
+import whatIsMcp from "@/assets/certificate-Rommel-Esguerra-What-is-Zapier-MCP-.pdf.asset.json";
+import usingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Using-Zapier-MCP.pdf.asset.json";
+import governingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Governing-Zapier-MCP.pdf.asset.json";
+import generalCert from "@/assets/Rommel_Esguerra_Zapier.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,8 +75,68 @@ const NAV = [
   ["Experience", "#experience"],
   ["Work", "#work"],
   ["Testimonials", "#testimonials"],
+  ["Certificates", "#certifications"],
   ["Contact", "#contact"],
 ] as const;
+
+const CERTIFICATIONS = [
+  {
+    title: "Building Basic Zaps",
+    file: basicZaps.url,
+    ai: false,
+    body: "Core trigger-action automation, app connectivity and foundational workflow logic.",
+    purpose: "Ensures rock-solid, error-free standard integrations.",
+  },
+  {
+    title: "Building Intermediate Zaps",
+    file: intermediateZaps.url,
+    ai: false,
+    body: "Multi-step workflows, conditional branching (Paths), filters, data formatting and error handling.",
+    purpose: "Automates complex business processes with resilience.",
+  },
+  {
+    title: "Building AI Agents",
+    file: aiAgents.url,
+    ai: true,
+    body: "Designing autonomous AI agents, memory handling, LLM prompting and tool execution.",
+    purpose: "Enables 24/7 AI-driven support and qualification workflows.",
+  },
+  {
+    title: "Zapier Jumpstart",
+    file: jumpstart.url,
+    ai: false,
+    body: "Accelerated workflow development and automation fundamentals.",
+    purpose: "Rapid delivery and immediate ROI for new client systems.",
+  },
+  {
+    title: "What is Zapier MCP?",
+    file: whatIsMcp.url,
+    ai: true,
+    body: "Fundamentals of the Model Context Protocol and integrating LLMs with external tools via Zapier.",
+    purpose: "Bridges modern AI reasoning with actionable business tooling.",
+  },
+  {
+    title: "Using Zapier MCP",
+    file: usingMcp.url,
+    ai: true,
+    body: "Practical implementation of Zapier MCP servers and actions connected to AI models.",
+    purpose: "Lets custom AI agents securely trigger workflows and fetch data across hundreds of apps.",
+  },
+  {
+    title: "Governing Zapier MCP",
+    file: governingMcp.url,
+    ai: true,
+    body: "Security, compliance, permissions and safe governance for AI-connected automations.",
+    purpose: "Guarantees secure, controlled AI interactions without unauthorized data exposure.",
+  },
+  {
+    title: "Zapier Certified Automation Specialist",
+    file: generalCert.url,
+    ai: false,
+    body: "Overall verification of Zapier automation expertise across triggers, logic and integrations.",
+    purpose: "Proves verified domain mastery in building scalable systems.",
+  },
+];
 
 const SERVICES = [
   {
@@ -648,6 +718,15 @@ function Portfolio() {
           </div>
         </Section>
 
+        {/* Certifications */}
+        <Section
+          id="certifications"
+          eyebrow="Credentials"
+          title="Certifications & credentials"
+        >
+          <CertificationsGrid />
+        </Section>
+
         {/* Contact */}
         <Section id="contact" eyebrow="Contact" title="Let's automate your growth">
           <div className="grid gap-8 lg:grid-cols-2">
@@ -912,6 +991,118 @@ function WorkGrid() {
             onClick={(e) => e.stopPropagation()}
             className="max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
           />
+        </div>
+      )}
+    </>
+  );
+}
+
+function CertificationsGrid() {
+  const [active, setActive] = useState<(typeof CERTIFICATIONS)[number] | null>(null);
+
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active]);
+
+  return (
+    <>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {CERTIFICATIONS.map((c) => (
+          <article
+            key={c.title}
+            className={`card-surface interactive-card flex flex-col rounded-lg p-6 ${c.ai ? "tool-card-ai" : ""}`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              {c.ai ? (
+                <ShieldCheck className="size-6 text-accent" />
+              ) : (
+                <Award className="size-6 text-primary" />
+              )}
+              <span
+                className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider ${
+                  c.ai
+                    ? "border-accent/50 text-accent"
+                    : "border-border text-muted-foreground"
+                }`}
+              >
+                {c.ai ? "AI / MCP" : "Automation"}
+              </span>
+            </div>
+            <h3 className="mt-4 text-base font-semibold leading-snug">{c.title}</h3>
+            <p className="mt-1 text-xs uppercase tracking-wider text-primary">Zapier</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
+            <p className="mt-4 border-t border-border pt-4 text-sm text-muted-foreground">
+              <span className="block text-xs font-semibold uppercase tracking-wider text-foreground">
+                Purpose for clients
+              </span>
+              {c.purpose}
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setActive(c)}
+                className="cta-motion rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+              >
+                View certificate
+              </button>
+              <a
+                href={c.file}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg border border-border px-4 py-2 text-xs font-semibold text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                Open PDF
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {active && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${active.title} certificate`}
+          className="fixed inset-0 z-50 flex flex-col bg-background/95 p-4 backdrop-blur-sm sm:p-8"
+          onClick={() => setActive(null)}
+        >
+          <div
+            className="mx-auto flex h-full w-full max-w-4xl flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 pb-3">
+              <div>
+                <h3 className="text-base font-semibold">{active.title}</h3>
+                <p className="text-xs text-muted-foreground">Issued by Zapier</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActive(null)}
+                aria-label="Close certificate preview"
+                className="rounded-lg border border-border p-2 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+            <iframe
+              src={active.file}
+              title={`${active.title} certificate`}
+              className="min-h-0 flex-1 rounded-lg border border-border bg-card"
+            />
+            <a
+              href={active.file}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 self-start text-xs font-semibold text-primary hover:underline"
+            >
+              Open in a new tab
+            </a>
+          </div>
         </div>
       )}
     </>
