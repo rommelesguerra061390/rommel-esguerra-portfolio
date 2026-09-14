@@ -82,14 +82,15 @@ export default function HeroBackground() {
       paths = [];
       const maxDist = Math.max(width, height) * (isMobile ? 0.32 : 0.24);
       for (let i = 0; i < nodes.length; i++) {
+        const ni = nodes[i]!;
         const dists = nodes
-          .map((n, j) => ({ j, d: Math.hypot(n.x - nodes[i].x, n.y - nodes[i].y) }))
+          .map((n, j) => ({ j, d: Math.hypot(n.x - ni.x, n.y - ni.y) }))
           .filter((e) => e.j !== i && e.d < maxDist)
           .sort((a, b) => a.d - b.d)
           .slice(0, 2);
         for (const e of dists) {
           if (paths.some((p) => (p.a === i && p.b === e.j) || (p.a === e.j && p.b === i))) continue;
-          paths.push({ a: i, b: e.j, ai: nodes[i].ai || nodes[e.j].ai });
+          paths.push({ a: i, b: e.j, ai: ni.ai || nodes[e.j]!.ai });
         }
       }
 
@@ -108,8 +109,8 @@ export default function HeroBackground() {
 
     // orthogonal-ish circuit route between two nodes
     const routePoint = (p: Path, t: number) => {
-      const a = nodes[p.a];
-      const b = nodes[p.b];
+      const a = nodes[p.a]!;
+      const b = nodes[p.b]!;
       const midX = a.x + (b.x - a.x) * 0.55;
       if (t < 0.55) {
         const k = t / 0.55;
@@ -137,8 +138,8 @@ export default function HeroBackground() {
 
     const drawPaths = (time: number) => {
       for (const p of paths) {
-        const a = nodes[p.a];
-        const b = nodes[p.b];
+        const a = nodes[p.a]!;
+        const b = nodes[p.b]!;
         const mid = routePoint(p, 0.55);
         const boost = Math.max(a.glow, b.glow);
         const base = p.ai ? 0.05 : 0.07;
