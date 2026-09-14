@@ -31,6 +31,7 @@ import {
 import { SiAirtable, SiClaude, SiFacebook, SiGooglecalendar, SiGooglesheets, SiMake, SiMessenger, SiNotion, SiZapier } from "react-icons/si";
 import { FaGoogle, FaMicrosoft, FaSlack } from "react-icons/fa6";
 import { BsOpenai } from "react-icons/bs";
+import HeroBackground from "@/components/HeroBackground";
 import asanaCrm from "@/assets/Asana_CRM_Engagement_Automation.png.asset.json";
 import contentRepurposing from "@/assets/Content_Repurposing_Project.png.asset.json";
 import universalLead from "@/assets/Universal_Lead_Management_and_Follow_ups.png.asset.json";
@@ -503,8 +504,9 @@ function Portfolio() {
 
       <main id="top">
         {/* Hero */}
-        <section className="hero-glow">
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:items-center">
+        <section className="hero-glow relative isolate overflow-hidden">
+          <HeroBackground />
+          <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:items-center">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
                 <span className="size-2 rounded-full bg-[var(--success)] shadow-[0_0_10px_color-mix(in_oklab,var(--success)_70%,transparent)]" /> Available for new projects
