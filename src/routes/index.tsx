@@ -830,8 +830,9 @@ function ToolRow({
   useEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Row 1 scrolls left (scrollLeft increases); Row 2 scrolls right (scrollLeft decreases from midpoint).
     if (reverse) viewport.scrollLeft = viewport.scrollWidth / 2;
-    const SPEED_PX_PER_MS = 0.02; // ~20 px/sec — gentle, relaxed, easy to read
+    const SPEED_PX_PER_MS = 0.03; // ~30 px/sec — gentle yet clearly visible alternating drift
     let frame = 0;
     let previous = performance.now();
     const animate = (now: number) => {
