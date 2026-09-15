@@ -49,6 +49,8 @@ import whatIsMcp from "@/assets/certificate-Rommel-Esguerra-What-is-Zapier-MCP-.
 import usingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Using-Zapier-MCP.pdf.asset.json";
 import governingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Governing-Zapier-MCP.pdf.asset.json";
 import generalCert from "@/assets/Rommel_Esguerra_Zapier.pdf.asset.json";
+import makeCert from "@/assets/MAKE_CERTIFICATION.pdf.asset.json";
+import gmailAutoSort from "@/assets/Make_Gmail_Auto_Sort_attachemnt_upload_with_log_monitoring_and_autonotifications.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -136,6 +138,14 @@ const CERTIFICATIONS = [
     ai: false,
     body: "Overall verification of Zapier automation expertise across triggers, logic and integrations.",
     purpose: "Proves verified domain mastery in building scalable systems.",
+  },
+  {
+    title: "No Code Automation with Make.com",
+    file: makeCert.url,
+    ai: true,
+    issuer: "Make · Tara AI Community",
+    body: "Full Make.com training covering the interface, scenario structure, filters, triggers, app connections, actions, data manipulation, advanced routing, HTTP requests and AI agents.",
+    purpose: "Builds advanced Make scenarios — including API calls and AI agents — that connect tools with no native integration.",
   },
 ];
 
@@ -253,6 +263,22 @@ const WORK = [
     ],
     images: [
       { src: xeroAsana.url, alt: "Make scenario exporting Xero transactions into Google Sheets and Asana" },
+    ],
+  },
+  {
+    title: "Make Gmail Auto Sort Attachment Upload with Log Monitoring and Auto Notifications",
+    tag: "Make",
+    body: "A Make scenario that watches incoming Gmail, lists each email's attachments, uploads the file for AI analysis, generates a clean new file name, uploads the attachment to Drive, logs the attachment details as a row in Google Sheets and sends an email notification.",
+    problem:
+      "Important email attachments got buried in busy inboxes — staff had to open every message, save files by hand, and had no record of what arrived or when.",
+    benefits: [
+      "Attachments are captured, renamed and filed automatically",
+      "AI analysis reads each file without anyone opening the email",
+      "A Google Sheets log tracks every attachment for auditing",
+      "The team gets an instant email notification for each file",
+    ],
+    images: [
+      { src: gmailAutoSort.url, alt: "Make scenario watching Gmail, uploading attachments to Drive, logging to Sheets and notifying by email" },
     ],
   },
   {
@@ -1037,7 +1063,7 @@ function CertificationsGrid() {
               </span>
             </div>
             <h3 className="mt-4 text-base font-semibold leading-snug">{c.title}</h3>
-            <p className="mt-1 text-xs uppercase tracking-wider text-primary">Zapier</p>
+            <p className="mt-1 text-xs uppercase tracking-wider text-primary">{"issuer" in c ? c.issuer : "Zapier"}</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
             <p className="mt-4 border-t border-border pt-4 text-sm text-muted-foreground">
               <span className="block text-xs font-semibold uppercase tracking-wider text-foreground">
