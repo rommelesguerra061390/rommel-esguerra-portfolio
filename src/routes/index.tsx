@@ -50,6 +50,7 @@ import usingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Using-Zapier-M
 import governingMcp from "@/assets/Zapier_certificate-Rommel-Esguerra-Governing-Zapier-MCP.pdf.asset.json";
 import generalCert from "@/assets/Rommel_Esguerra_Zapier.pdf.asset.json";
 import makeCert from "@/assets/MAKE_CERTIFICATION.pdf.asset.json";
+import noCodeZapier from "@/assets/Rommel_Esguerra_No_Code_Automation_Zapier.pdf.asset.json";
 import gmailAutoSort from "@/assets/Make_Gmail_Auto_Sort_attachemnt_upload_with_log_monitoring_and_autonotifications.png.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -146,6 +147,14 @@ const CERTIFICATIONS = [
     issuer: "Make · Tara AI Community",
     body: "Full Make.com training covering the interface, scenario structure, filters, triggers, app connections, actions, data manipulation, advanced routing, HTTP requests and AI agents.",
     purpose: "Builds advanced Make scenarios — including API calls and AI agents — that connect tools with no native integration.",
+  },
+  {
+    title: "No Code Automation with Zapier",
+    file: noCodeZapier.url,
+    ai: true,
+    issuer: "Zapier · Tara AI Community",
+    body: "Full Zapier training covering the interface, triggers, Formatter, Delay, Filter, Paths, Looping, Sub Zaps, Webhooks and AI with Human in the loop.",
+    purpose: "Delivers sophisticated multi-step Zap automations — from conditional routing and looping to AI-assisted workflows with human oversight.",
   },
 ];
 
