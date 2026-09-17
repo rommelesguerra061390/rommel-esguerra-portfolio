@@ -594,7 +594,7 @@ function Portfolio() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="size-4 shrink-0 text-primary" />
-                  <a className="hover:text-primary" href="tel:09939155488">09939155488</a>
+                  <a className="hover:text-primary" href="tel:+639480748297">(+63)9480748297</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <MapPin className="size-4 shrink-0 text-primary" /> Philippines · Working remotely
@@ -776,8 +776,8 @@ function Portfolio() {
                 <a href="mailto:rommelesguerra061390@gmail.com" className="flex items-center gap-3 hover:text-primary">
                   <Mail className="size-4 text-primary" /> rommelesguerra061390@gmail.com
                 </a>
-                <a href="tel:09939155488" className="flex items-center gap-3 hover:text-primary">
-                  <Phone className="size-4 text-primary" /> 09939155488
+                <a href="tel:+639480748297" className="flex items-center gap-3 hover:text-primary">
+                  <Phone className="size-4 text-primary" /> (+63)9480748297
                 </a>
                 <a
                   href="https://linkedin.com/in/rommel-esguerra-13a298160"
