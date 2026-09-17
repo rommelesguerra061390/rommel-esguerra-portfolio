@@ -594,7 +594,7 @@ function Portfolio() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="size-4 shrink-0 text-primary" />
-                  <a className="hover:text-primary" href="tel:09939155488">09939155488</a>
+                  <a className="hover:text-primary" href="tel:+639480748297">(+63)9480748297</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <MapPin className="size-4 shrink-0 text-primary" /> Philippines · Working remotely
