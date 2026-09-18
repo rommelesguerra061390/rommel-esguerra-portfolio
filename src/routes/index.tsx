@@ -7,6 +7,7 @@ import {
   LineChart,
   Mail,
   Phone,
+  PhoneMissed,
   MapPin,
   Linkedin,
   Globe,
@@ -28,6 +29,14 @@ import {
   Table2,
   Award,
   ShieldCheck,
+  ClipboardList,
+  Filter,
+  MessageSquare,
+  BellRing,
+  Repeat,
+  RefreshCw,
+  Zap,
+  Wrench,
 } from "lucide-react";
 import { SiAirtable, SiClaude, SiFacebook, SiGooglecalendar, SiGooglesheets, SiMake, SiMessenger, SiNotion, SiZapier } from "react-icons/si";
 import { FaGoogle, FaMicrosoft, FaSlack } from "react-icons/fa6";
