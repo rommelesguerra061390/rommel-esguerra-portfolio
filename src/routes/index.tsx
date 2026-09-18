@@ -7,6 +7,7 @@ import {
   LineChart,
   Mail,
   Phone,
+  PhoneMissed,
   MapPin,
   Linkedin,
   Globe,
@@ -28,6 +29,14 @@ import {
   Table2,
   Award,
   ShieldCheck,
+  ClipboardList,
+  Filter,
+  MessageSquare,
+  BellRing,
+  Repeat,
+  RefreshCw,
+  Zap,
+  Wrench,
 } from "lucide-react";
 import { SiAirtable, SiClaude, SiFacebook, SiGooglecalendar, SiGooglesheets, SiMake, SiMessenger, SiNotion, SiZapier } from "react-icons/si";
 import { FaGoogle, FaMicrosoft, FaSlack } from "react-icons/fa6";
@@ -162,23 +171,123 @@ const CERTIFICATIONS = [
 const SERVICES = [
   {
     icon: Rocket,
-    title: "GoHighLevel Build-Outs",
-    body: "Full sub-account setup: pipelines, calendars, funnels, forms, memberships and white-label snapshots ready to duplicate across clients.",
+    title: "GoHighLevel CRM Setup",
+    body: "Complete GoHighLevel sub-account setup: pipelines, calendars, funnels, forms and user permissions configured and ready to run from day one.",
+    benefit: "A working CRM without the trial-and-error setup cost.",
   },
   {
-    icon: Workflow,
-    title: "Automation & Workflows",
-    body: "Lead nurture, appointment reminders, review requests and reactivation campaigns across SMS, email and voice — built to run without babysitting.",
+    icon: Database,
+    title: "CRM Cleanup & Management",
+    body: "De-duplicating contacts, fixing pipeline stages, tagging and ongoing data hygiene so your CRM stays accurate and usable.",
+    benefit: "Reliable data your team can trust for follow-ups and reporting.",
+  },
+  {
+    icon: Target,
+    title: "Pipeline Setup",
+    body: "Custom pipelines and stages mapped to your real sales process, with automations triggered by stage changes.",
+    benefit: "Every lead is visible — nothing stalls in an unnamed stage.",
+  },
+  {
+    icon: ClipboardList,
+    title: "Lead Capture Forms",
+    body: "High-converting forms, surveys and funnel pages wired straight into your CRM and follow-up workflows.",
+    benefit: "No lead is lost between your website and your pipeline.",
+  },
+  {
+    icon: Filter,
+    title: "Lead Qualification",
+    body: "Smart forms, conditional logic and AI scoring that separate hot prospects from tire-kickers before anyone picks up the phone.",
+    benefit: "Your sales time goes to leads worth closing.",
   },
   {
     icon: Bot,
-    title: "AI Assistants & Chatbots",
-    body: "AI booking bots, FAQ responders and inbound qualifiers connected to your CRM so every conversation moves toward a booked call.",
+    title: "AI Chatbot Setup",
+    body: "AI assistants trained on your business that answer questions, capture details and book appointments 24/7 on chat and SMS.",
+    benefit: "You never miss an after-hours inquiry again.",
+  },
+  {
+    icon: MessageSquare,
+    title: "AI-Assisted Customer Replies",
+    body: "AI-drafted responses to common inquiries inside your conversations inbox, personalized before they send.",
+    benefit: "Faster replies with a consistent, professional tone.",
+  },
+  {
+    icon: Mail,
+    title: "Email Automation",
+    body: "Welcome sequences, nurture campaigns, newsletters and behavior-based follow-ups built and scheduled for you.",
+    benefit: "Leads stay warm without anyone manually hitting send.",
+  },
+  {
+    icon: Phone,
+    title: "SMS Automation",
+    body: "Timely text workflows for confirmations, reminders, follow-ups and offers, built with compliance in mind.",
+    benefit: "Open-and-read rates that email alone can't match.",
+  },
+  {
+    icon: CalendarDays,
+    title: "Appointment Booking",
+    body: "Calendar setup with availability rules, booking links and routing connected to your funnels and workflows.",
+    benefit: "Prospects self-book straight into your calendar.",
+  },
+  {
+    icon: BellRing,
+    title: "Appointment Reminders",
+    body: "Automated SMS and email reminder sequences that cut no-shows, with built-in reschedule links.",
+    benefit: "Fewer empty slots and less wasted prep time.",
+  },
+  {
+    icon: PhoneMissed,
+    title: "Missed-Call Automation",
+    body: "An instant text-back the moment a call goes unanswered, with follow-up workflows that recover the lead.",
+    benefit: "Missed calls become booked conversations instead of lost revenue.",
+  },
+  {
+    icon: Repeat,
+    title: "Lead Nurturing",
+    body: "Multi-channel drip campaigns that educate and build trust across email and SMS until prospects are ready to buy.",
+    benefit: "More of your pipeline converts instead of going cold.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Customer Reactivation",
+    body: "Win-back campaigns for dormant leads and past customers using segmented lists and well-timed offers.",
+    benefit: "New revenue from the database you already own.",
+  },
+  {
+    icon: Star,
+    title: "Review-Request Automation",
+    body: "Automated review requests after a completed job or purchase, routed to Google and Facebook at the right moment.",
+    benefit: "A steady stream of fresh 5-star reviews that win new customers.",
+  },
+  {
+    icon: Zap,
+    title: "Zapier Integrations",
+    body: "Connecting GoHighLevel, CRMs, spreadsheets and thousands of apps with multi-step Zaps, filters and error handling.",
+    benefit: "Your tools finally talk to each other — no more copy-paste.",
+  },
+  {
+    icon: Table2,
+    title: "Airtable / Google Sheets Automation",
+    body: "Structured bases and sheets with automated syncing, logging and approval flows between your systems.",
+    benefit: "Live, organized data without manual spreadsheet upkeep.",
+  },
+  {
+    icon: Database,
+    title: "Database Management",
+    body: "Organizing contact records, custom fields, tags and segments across your CRM and connected tools.",
+    benefit: "Clean segmentation for sharper targeting and reporting.",
+  },
+  {
+    icon: Wrench,
+    title: "Workflow Troubleshooting",
+    body: "Diagnosing broken automations, failed triggers and delivery issues — then fixing and documenting them properly.",
+    benefit: "Automations that keep working instead of failing silently.",
   },
   {
     icon: LineChart,
-    title: "Systems & Reporting",
-    body: "Integrations via API, webhooks, Make and Zapier, plus dashboards that show where leads come from and where they stall.",
+    title: "Reporting & CRM Maintenance",
+    body: "Dashboards, attribution reports and routine CRM health checks that keep your whole system performing.",
+    benefit: "Decisions based on numbers, not guesswork.",
   },
 ];
 
@@ -443,11 +552,13 @@ function Section({
   id,
   eyebrow,
   title,
+  description,
   children,
 }: {
   id: string;
   eyebrow: string;
   title: string;
+  description?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -455,6 +566,9 @@ function Section({
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">{eyebrow}</p>
         <h2 className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">{title}</h2>
+        {description ? (
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{description}</p>
+        ) : null}
         <div className="mt-10">{children}</div>
       </div>
     </section>
@@ -665,17 +779,26 @@ function Portfolio() {
         </Section>
 
         {/* Services */}
-        <Section id="services" eyebrow="Services" title="What I can build for you">
-          <div className="grid gap-5 sm:grid-cols-2">
-            {SERVICES.map((s) => (
+        <Section
+          id="services"
+          eyebrow="Services"
+          title="What I can build for you"
+          description="As a CRM & AI Automation Virtual Assistant, I handle the full system — from capturing leads to keeping your CRM healthy. Every service below is built to run without you babysitting it."
+        >
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s, i) => (
               <div
                 key={s.title}
-                 style={{ transitionDelay: `${(SERVICES.indexOf(s) % 3) * 100}ms` }}
-                 className="reveal-card card-surface interactive-card group rounded-lg p-6"
+                style={{ transitionDelay: `${(i % 3) * 100}ms` }}
+                className="reveal-card card-surface interactive-card group flex flex-col rounded-lg p-6"
               >
-                 <s.icon className="icon-shift size-6 text-primary" />
+                <s.icon className="icon-shift size-6 text-primary" />
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                <p className="mt-4 border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-medium text-primary">Benefit for your business: </span>
+                  {s.benefit}
+                </p>
               </div>
             ))}
           </div>
