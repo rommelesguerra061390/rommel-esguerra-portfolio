@@ -774,17 +774,26 @@ function Portfolio() {
         </Section>
 
         {/* Services */}
-        <Section id="services" eyebrow="Services" title="What I can build for you">
-          <div className="grid gap-5 sm:grid-cols-2">
-            {SERVICES.map((s) => (
+        <Section
+          id="services"
+          eyebrow="Services"
+          title="What I can build for you"
+          description="As a CRM & AI Automation Virtual Assistant, I handle the full system — from capturing leads to keeping your CRM healthy. Every service below is built to run without you babysitting it."
+        >
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s, i) => (
               <div
                 key={s.title}
-                 style={{ transitionDelay: `${(SERVICES.indexOf(s) % 3) * 100}ms` }}
-                 className="reveal-card card-surface interactive-card group rounded-lg p-6"
+                style={{ transitionDelay: `${(i % 3) * 100}ms` }}
+                className="reveal-card card-surface interactive-card group flex flex-col rounded-lg p-6"
               >
-                 <s.icon className="icon-shift size-6 text-primary" />
+                <s.icon className="icon-shift size-6 text-primary" />
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                <p className="mt-4 border-t border-border pt-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="font-medium text-primary">Benefit for your business: </span>
+                  {s.benefit}
+                </p>
               </div>
             ))}
           </div>
