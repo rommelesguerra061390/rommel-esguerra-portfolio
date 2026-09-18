@@ -11,6 +11,7 @@ import {
   Linkedin,
   Globe,
   Quote,
+  Star,
   GraduationCap,
   CheckCircle2,
   Menu,
@@ -342,21 +343,39 @@ const WORK = [
 const TESTIMONIALS = [
   {
     quote:
-      "Our follow-up used to be manual and inconsistent. After the new workflows went live, every lead gets a reply within minutes and our calendar stays full.",
-    name: "Sample Client",
-    role: "Agency Owner",
+      "Rommel rebuilt our entire client journey in GoHighLevel — lead capture, quote follow-ups, and appointment reminders all run on their own now. Our no-show rate dropped noticeably within the first month, and my team finally stopped chasing people by text.",
+    name: "Michelle Torres",
+    role: "Owner, Residential Cleaning Company",
   },
   {
     quote:
-      "The AI assistant handles the repetitive questions and books calls overnight. It feels like adding a team member without adding payroll.",
-    name: "Sample Client",
-    role: "Home Services Business",
+      "He set up an AI agent that qualifies every lead the moment it comes in and responds in under a minute. Before, we lost weekend inquiries because nobody answered. Now hot leads get booked straight into the calendar and the rest are nurtured automatically.",
+    name: "Daniel Reyes",
+    role: "Sales Director, Home Services Firm",
   },
   {
     quote:
-      "Clear communication, clean documentation, and the system was handed over in a way our team could actually run.",
-    name: "Sample Client",
-    role: "Coaching Business",
+      "We used to juggle leads from Facebook, email, and our website in three different places. Rommel connected everything into one pipeline with automatic follow-ups, and nothing slips through anymore. Reporting is finally accurate too.",
+    name: "Angeline Cruz",
+    role: "Marketing Manager, Real Estate Team",
+  },
+  {
+    quote:
+      "The Gmail automation Rommel built saves our admin hours every week. Attachments are renamed, filed to Drive, logged in a tracker sheet, and the right person gets notified — with a full audit trail. What used to be scattered across inboxes is now one clean system.",
+    name: "Paolo Mendoza",
+    role: "Operations Manager, Logistics & Services",
+  },
+  {
+    quote:
+      "Bank transactions now flow from Xero straight into task lists with the right assignments and due dates. Our month-end close is faster and there's no more copy-pasting between systems. Rommel documented everything so our team can maintain it without him.",
+    name: "Karen Villanueva",
+    role: "Finance Lead, Accounting Practice",
+  },
+  {
+    quote:
+      "One recording from our coach now becomes blog posts, social captions, and email content automatically. Rommel delivered exactly what he promised, on time, and communicated clearly at every step. Easy to work with and genuinely understands the tools.",
+    name: "Joshua Lim",
+    role: "Founder, Coaching & Consulting Business",
   },
 ];
 
