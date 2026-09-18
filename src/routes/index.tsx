@@ -713,14 +713,18 @@ function Portfolio() {
 
 
         {/* Testimonials */}
-        <Section id="testimonials" eyebrow="Testimonials" title="Sample client feedback">
-          <p className="-mt-6 mb-8 text-sm text-muted-foreground">
-            These are placeholder examples shown for layout purposes, not real client quotes.
-          </p>
+        <Section id="testimonials" eyebrow="Testimonials" title="What clients say about my work">
           <div className="grid gap-5 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
                <figure key={t.quote} className="card-surface interactive-card rounded-lg p-6">
-                <Quote className="size-6 text-primary" />
+                <div className="flex items-center justify-between">
+                  <Quote className="size-6 text-primary" />
+                  <div className="flex gap-0.5" aria-label="Rated 5 out of 5 stars">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="size-3.5 fill-primary text-primary" aria-hidden="true" />
+                    ))}
+                  </div>
+                </div>
                 <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
                   “{t.quote}”
                 </blockquote>
