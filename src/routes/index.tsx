@@ -62,6 +62,7 @@ import generalCert from "@/assets/Rommel_Esguerra_Zapier.pdf.asset.json";
 import makeCert from "@/assets/MAKE_CERTIFICATION.pdf.asset.json";
 import noCodeZapier from "@/assets/Rommel_Esguerra_No_Code_Automation_Zapier.pdf.asset.json";
 import gmailAutoSort from "@/assets/Make_Gmail_Auto_Sort_attachemnt_upload_with_log_monitoring_and_autonotifications.png.asset.json";
+import followUpSystem from "@/assets/Automated_Follow_Up_System_Make.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
