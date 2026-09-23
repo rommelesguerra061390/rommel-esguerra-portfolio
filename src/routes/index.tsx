@@ -62,6 +62,7 @@ import generalCert from "@/assets/Rommel_Esguerra_Zapier.pdf.asset.json";
 import makeCert from "@/assets/MAKE_CERTIFICATION.pdf.asset.json";
 import noCodeZapier from "@/assets/Rommel_Esguerra_No_Code_Automation_Zapier.pdf.asset.json";
 import gmailAutoSort from "@/assets/Make_Gmail_Auto_Sort_attachemnt_upload_with_log_monitoring_and_autonotifications.png.asset.json";
+import followUpSystem from "@/assets/Automated_Follow_Up_System_Make.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -398,6 +399,23 @@ const WORK = [
     ],
     images: [
       { src: gmailAutoSort.url, alt: "Make scenario watching Gmail, uploading attachments to Drive, logging to Sheets and notifying by email" },
+    ],
+  },
+  {
+    title: "Automated Follow-Up System",
+    tag: "Make",
+    body: "A three-part Make system built around Google Sheets as the follow-up brain: one scenario watches new inbound Gmail and logs every sender as a row with an instant acknowledgement reply; a second checks whether a contacting sender already exists in the sheet, updating their row for returning contacts or creating a fresh one for new leads; and a third searches the log on schedule, routes each pending contact through a router, sends the next staged follow-up email and updates their row so no conversation is repeated or lost.",
+    problem:
+      "Follow-ups relied on staff remembering who to chase and when — new enquiries went unanswered for hours, returning clients were treated like strangers, and once an email thread slipped past a day it was simply forgotten. There was no shared record of who had been contacted, how many times, or what was said.",
+    benefits: [
+      "Every new enquiry is logged and acknowledged in minutes, not hours",
+      "Returning senders are recognised automatically, so replies stay personal and in context",
+      "Staged, scheduled follow-ups go out consistently — no lead is dropped because someone got busy",
+      "The Google Sheets log gives the whole team one live view of every conversation's status",
+      "Scales with volume: ten enquiries or a thousand, the system chases each one the same way",
+    ],
+    images: [
+      { src: followUpSystem.url, alt: "Three connected Make scenarios logging inbound Gmail to Google Sheets, detecting returning contacts and sending staged follow-up emails" },
     ],
   },
   {
