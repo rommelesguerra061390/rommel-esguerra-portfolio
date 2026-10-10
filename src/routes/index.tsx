@@ -63,6 +63,7 @@ import makeCert from "@/assets/MAKE_CERTIFICATION.pdf.asset.json";
 import noCodeZapier from "@/assets/Rommel_Esguerra_No_Code_Automation_Zapier.pdf.asset.json";
 import gmailAutoSort from "@/assets/Make_Gmail_Auto_Sort_attachemnt_upload_with_log_monitoring_and_autonotifications.png.asset.json";
 import followUpSystem from "@/assets/Automated_Follow_Up_System_Make.jpg.asset.json";
+import gmailAutoLabeling from "@/assets/Make_Gmail_Email_Auto_Labeling_Router.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -416,6 +417,23 @@ const WORK = [
     ],
     images: [
       { src: followUpSystem.url, alt: "Three connected Make scenarios logging inbound Gmail to Google Sheets, detecting returning contacts and sending staged follow-up emails" },
+    ],
+  },
+  {
+    title: "Make Gmail Email Auto-Labeling & Sorting System",
+    tag: "Make",
+    body: "A Make scenario that watches incoming Gmail on schedule and runs every new email through a router: each route matches the message against the filters for a category — interview and assessment, jobs applied, Indeed, JobStreet, OnlineJobs.ph — then applies the right Gmail label, with a fallback route catching anything that matches none of them.",
+    problem:
+      "Job-application inboxes fill up fast, and every email sits in one undifferentiated pile: staff had to read each message to know whether it was an interview invite, an application confirmation or a job-board alert, so important interviews were easy to miss and nothing could be found later.",
+    benefits: [
+      "Every email is sorted into the right Gmail label the moment it arrives — no manual reading to decide where it belongs",
+      "Interview and assessment emails are flagged instantly, so time-sensitive invitations never get buried",
+      "The router's fallback route guarantees nothing slips through unsorted",
+      "One scenario replaces a daily inbox-triage chore, and the labels make every category searchable in one click",
+      "Adding a new category is a single new route on the same watch module — the system grows with the mailbox",
+    ],
+    images: [
+      { src: gmailAutoLabeling.url, alt: "Make scenario watching Gmail and routing each email through a router to category-specific label modules" },
     ],
   },
   {
