@@ -1142,13 +1142,12 @@ function WorkGrid() {
 
   return (
     <>
-      <div className="grid gap-6 md:grid-cols-2">
-        {WORK.map((w, i) => (
-          <article
-            key={w.title}
-            style={{ transitionDelay: `${(i % 2) * 100}ms` }}
-            className="reveal-card card-surface interactive-card flex flex-col overflow-hidden rounded-lg"
-          >
+      <PeekCarousel
+        label="Previous works and sample projects carousel"
+        items={WORK}
+        itemKey={(w) => w.title}
+        renderItem={(w) => (
+          <article className="card-surface interactive-card flex h-full flex-col overflow-hidden rounded-lg">
             <div className={`grid gap-2 p-3 ${w.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
               {w.images.map((img) => (
                 <button
