@@ -823,13 +823,12 @@ function Portfolio() {
           title="What I can build for you"
           description="As a CRM & AI Automation Virtual Assistant, I handle the full system — from capturing leads to keeping your CRM healthy. Every service below is built to run without you babysitting it."
         >
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => (
-              <div
-                key={s.title}
-                style={{ transitionDelay: `${(i % 3) * 100}ms` }}
-                className="reveal-card card-surface interactive-card group flex flex-col rounded-lg p-6"
-              >
+          <PeekCarousel
+            label="Services carousel"
+            items={SERVICES}
+            itemKey={(s) => s.title}
+            renderItem={(s) => (
+              <div className="card-surface interactive-card group flex h-full flex-col rounded-lg p-6">
                 <s.icon className="icon-shift size-6 text-primary" />
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
@@ -838,8 +837,8 @@ function Portfolio() {
                   {s.benefit}
                 </p>
               </div>
-            ))}
-          </div>
+            )}
+          />
         </Section>
 
         <ToolsCarousel />
