@@ -600,7 +600,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} data-section className="reveal-section scroll-mt-24 border-t border-border py-20 sm:py-24">
+    <section id={id} data-section className="curtain reveal-section scroll-mt-24 border-t border-border py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">{eyebrow}</p>
         <h2 className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">{title}</h2>
@@ -648,9 +648,44 @@ function Portfolio() {
     };
     updateProgress();
     window.addEventListener("scroll", updateProgress, { passive: true });
+
+    // Curtain-reveal stack: rising z-index, dim overlay + scale on the pinned section.
+    const curtainSections = Array.from(document.querySelectorAll<HTMLElement>(".curtain"));
+    const overlays: HTMLElement[] = [];
+    curtainSections.forEach((el, i) => {
+      el.style.zIndex = String(i + 1);
+      if (i === curtainSections.length - 1) el.classList.add("curtain-static");
+      const overlay = document.createElement("div");
+      overlay.className = "curtain-dim";
+      overlay.setAttribute("aria-hidden", "true");
+      el.appendChild(overlay);
+      overlays.push(overlay);
+    });
+    let curtainTicking = false;
+    const updateCurtain = () => {
+      curtainTicking = false;
+      if (reduceMotion) return;
+      const ih = window.innerHeight;
+      curtainSections.forEach((el, i) => {
+        const p = Math.min(Math.max((window.scrollY - i * ih) / ih, 0), 1);
+        overlays[i]!.style.opacity = String(p * 0.25);
+        el.style.transform = p > 0 ? `scale(${1 - p * 0.06})` : "";
+      });
+    };
+    const onCurtainScroll = () => {
+      if (!curtainTicking) {
+        curtainTicking = true;
+        requestAnimationFrame(updateCurtain);
+      }
+    };
+    updateCurtain();
+    window.addEventListener("scroll", onCurtainScroll, { passive: true });
+
     return () => {
       revealObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("scroll", onCurtainScroll);
+      overlays.forEach((overlay) => overlay.remove());
     };
   }, []);
 
@@ -710,7 +745,7 @@ function Portfolio() {
 
       <main id="top">
         {/* Hero */}
-        <section className="hero-glow relative isolate overflow-hidden">
+        <section className="curtain hero-glow relative isolate overflow-hidden">
           <HeroBackground />
           <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:items-center">
             <div>
@@ -1114,7 +1149,7 @@ function ToolsCarousel() {
   const pausedRef = useRef(false);
 
   return (
-    <section data-section className="reveal-section border-t border-border bg-secondary/40 py-20 sm:py-24" aria-labelledby="tools-heading">
+    <section data-section className="curtain reveal-section border-t border-border bg-secondary/40 py-20 sm:py-24" aria-labelledby="tools-heading">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">TOOLS &amp; TECHNOLOGIES</p>
         <h2 id="tools-heading" className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">Powered by the tools I use to build smarter systems.</h2>
