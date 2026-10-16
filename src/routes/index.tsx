@@ -668,7 +668,7 @@ function Portfolio() {
       const ih = window.innerHeight;
       curtainSections.forEach((el, i) => {
         const p = Math.min(Math.max((window.scrollY - i * ih) / ih, 0), 1);
-        overlays[i].style.opacity = String(p * 0.25);
+        overlays[i]!.style.opacity = String(p * 0.25);
         el.style.transform = p > 0 ? `scale(${1 - p * 0.06})` : "";
       });
     };
