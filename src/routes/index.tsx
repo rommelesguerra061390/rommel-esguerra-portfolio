@@ -1186,8 +1186,8 @@ function WorkGrid() {
               </ul>
             </div>
           </article>
-        ))}
-      </div>
+        )}
+      />
 
       {zoom && (
         <div
