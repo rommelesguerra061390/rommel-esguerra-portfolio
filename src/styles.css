@@ -238,3 +238,112 @@
     transform: none;
   }
 }
+
+/* Peek carousel (services & portfolio) */
+.peek-carousel {
+  position: relative;
+}
+
+.peek-viewport {
+  overflow: hidden;
+  padding-inline-start: 15%;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.peek-viewport:active {
+  cursor: grabbing;
+}
+
+.peek-track {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  align-items: stretch;
+  transform: translateX(calc(var(--n, 0) * -1 * (70% + 10px)));
+  transition: transform 800ms linear(0, 0.094 5.6%, 0.274 11.1%, 0.455 16.7%, 0.608 22.2%, 0.726 27.8%, 0.812 33.3%, 0.873 38.9%, 0.944 50%, 0.976 61.1%, 1 100%);
+  will-change: transform;
+}
+
+.peek-slide {
+  flex: 0 0 70%;
+  min-width: 0;
+  opacity: 0.55;
+  transform: scale(0.94);
+  transition:
+    opacity 800ms ease,
+    transform 800ms linear(0, 0.094 5.6%, 0.274 11.1%, 0.455 16.7%, 0.608 22.2%, 0.726 27.8%, 0.812 33.3%, 0.873 38.9%, 0.944 50%, 0.976 61.1%, 1 100%);
+}
+
+.peek-slide[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.peek-controls {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.peek-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--foreground);
+  transition: border-color 240ms ease, color 240ms ease, transform 240ms ease;
+}
+
+.peek-arrow:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.peek-arrow:focus-visible,
+.peek-dot:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.peek-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.peek-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--muted-foreground);
+  opacity: 0.5;
+  transition:
+    width 800ms linear(0, 0.094 5.6%, 0.274 11.1%, 0.455 16.7%, 0.608 22.2%, 0.726 27.8%, 0.812 33.3%, 0.873 38.9%, 0.944 50%, 0.976 61.1%, 1 100%),
+    background-color 240ms ease,
+    opacity 240ms ease;
+}
+
+.peek-dot[data-active="true"] {
+  width: 22px;
+  background-color: var(--primary);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .peek-track,
+  .peek-slide,
+  .peek-dot,
+  .peek-arrow {
+    transition: none;
+  }
+}

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
 import {
   Bot,
   Workflow,
@@ -27,6 +27,8 @@ import {
   Target,
   CalendarDays,
   Table2,
+  ChevronLeft,
+  ChevronRight,
   Award,
   ShieldCheck,
   ClipboardList,
@@ -821,13 +823,12 @@ function Portfolio() {
           title="What I can build for you"
           description="As a CRM & AI Automation Virtual Assistant, I handle the full system — from capturing leads to keeping your CRM healthy. Every service below is built to run without you babysitting it."
         >
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => (
-              <div
-                key={s.title}
-                style={{ transitionDelay: `${(i % 3) * 100}ms` }}
-                className="reveal-card card-surface interactive-card group flex flex-col rounded-lg p-6"
-              >
+          <PeekCarousel
+            label="Services carousel"
+            items={SERVICES}
+            itemKey={(s) => s.title}
+            renderItem={(s) => (
+              <div className="card-surface interactive-card group flex h-full flex-col rounded-lg p-6">
                 <s.icon className="icon-shift size-6 text-primary" />
                 <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
@@ -836,8 +837,8 @@ function Portfolio() {
                   {s.benefit}
                 </p>
               </div>
-            ))}
-          </div>
+            )}
+          />
         </Section>
 
         <ToolsCarousel />
@@ -1127,6 +1128,113 @@ function ToolsCarousel() {
   );
 }
 
+function PeekCarousel<T>({
+  label,
+  items,
+  renderItem,
+  itemKey,
+}: {
+  label: string;
+  items: T[];
+  renderItem: (item: T, index: number) => ReactNode;
+  itemKey: (item: T) => string;
+}) {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const dragRef = useRef<{ startX: number } | null>(null);
+  const count = items.length;
+
+  const go = (n: number) => setIndex(((n % count) + count) % count);
+
+  useEffect(() => {
+    if (paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % count), 4000);
+    return () => window.clearInterval(id);
+  }, [paused, count]);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    dragRef.current = { startX: e.clientX };
+    setPaused(true);
+  };
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    dragRef.current = null;
+    setPaused(false);
+    if (!drag) return;
+    const dx = e.clientX - drag.startX;
+    if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
+  };
+
+  return (
+    <div
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={label}
+      className="peek-carousel"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          go(index - 1);
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          go(index + 1);
+        }
+      }}
+    >
+      <div
+        className="peek-viewport"
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => {
+          dragRef.current = null;
+          setPaused(false);
+        }}
+      >
+        <div className="peek-track" style={{ "--n": index } as CSSProperties}>
+          {items.map((item, i) => (
+            <div
+              key={itemKey(item)}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${count}`}
+              data-active={i === index}
+              className="peek-slide"
+            >
+              {renderItem(item, i)}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="peek-controls">
+        <button type="button" className="peek-arrow" aria-label="Previous slide" onClick={() => go(index - 1)}>
+          <ChevronLeft className="size-5" aria-hidden="true" />
+        </button>
+        <div className="peek-dots">
+          {items.map((item, i) => (
+            <button
+              key={itemKey(item)}
+              type="button"
+              className="peek-dot"
+              data-active={i === index}
+              aria-label={`Go to slide ${i + 1} of ${count}`}
+              aria-current={i === index ? "true" : undefined}
+              onClick={() => go(i)}
+            />
+          ))}
+        </div>
+        <button type="button" className="peek-arrow" aria-label="Next slide" onClick={() => go(index + 1)}>
+          <ChevronRight className="size-5" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function WorkGrid() {
   const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
 
@@ -1141,13 +1249,12 @@ function WorkGrid() {
 
   return (
     <>
-      <div className="grid gap-6 md:grid-cols-2">
-        {WORK.map((w, i) => (
-          <article
-            key={w.title}
-            style={{ transitionDelay: `${(i % 2) * 100}ms` }}
-            className="reveal-card card-surface interactive-card flex flex-col overflow-hidden rounded-lg"
-          >
+      <PeekCarousel
+        label="Previous works and sample projects carousel"
+        items={WORK}
+        itemKey={(w) => w.title}
+        renderItem={(w) => (
+          <article className="card-surface interactive-card flex h-full flex-col overflow-hidden rounded-lg">
             <div className={`grid gap-2 p-3 ${w.images.length > 1 ? "sm:grid-cols-2" : ""}`}>
               {w.images.map((img) => (
                 <button
@@ -1186,8 +1293,8 @@ function WorkGrid() {
               </ul>
             </div>
           </article>
-        ))}
-      </div>
+        )}
+      />
 
       {zoom && (
         <div
