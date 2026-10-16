@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
 import {
   Bot,
   Workflow,
@@ -27,6 +27,8 @@ import {
   Target,
   CalendarDays,
   Table2,
+  ChevronLeft,
+  ChevronRight,
   Award,
   ShieldCheck,
   ClipboardList,
