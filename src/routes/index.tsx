@@ -600,7 +600,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} data-section className="reveal-section scroll-mt-24 border-t border-border py-20 sm:py-24">
+    <section id={id} data-section className="curtain reveal-section scroll-mt-24 border-t border-border py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">{eyebrow}</p>
         <h2 className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">{title}</h2>
@@ -710,7 +710,7 @@ function Portfolio() {
 
       <main id="top">
         {/* Hero */}
-        <section className="hero-glow relative isolate overflow-hidden">
+        <section className="curtain hero-glow relative isolate overflow-hidden">
           <HeroBackground />
           <div className="relative z-10 mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[1.25fr_1fr] lg:items-center">
             <div>
@@ -1114,7 +1114,7 @@ function ToolsCarousel() {
   const pausedRef = useRef(false);
 
   return (
-    <section data-section className="reveal-section border-t border-border bg-secondary/40 py-20 sm:py-24" aria-labelledby="tools-heading">
+    <section data-section className="curtain reveal-section border-t border-border bg-secondary/40 py-20 sm:py-24" aria-labelledby="tools-heading">
       <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">TOOLS &amp; TECHNOLOGIES</p>
         <h2 id="tools-heading" className="mt-3 max-w-3xl text-3xl font-semibold sm:text-4xl">Powered by the tools I use to build smarter systems.</h2>
