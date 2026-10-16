@@ -648,9 +648,44 @@ function Portfolio() {
     };
     updateProgress();
     window.addEventListener("scroll", updateProgress, { passive: true });
+
+    // Curtain-reveal stack: rising z-index, dim overlay + scale on the pinned section.
+    const curtainSections = Array.from(document.querySelectorAll<HTMLElement>(".curtain"));
+    const overlays: HTMLElement[] = [];
+    curtainSections.forEach((el, i) => {
+      el.style.zIndex = String(i + 1);
+      if (i === curtainSections.length - 1) el.classList.add("curtain-static");
+      const overlay = document.createElement("div");
+      overlay.className = "curtain-dim";
+      overlay.setAttribute("aria-hidden", "true");
+      el.appendChild(overlay);
+      overlays.push(overlay);
+    });
+    let curtainTicking = false;
+    const updateCurtain = () => {
+      curtainTicking = false;
+      if (reduceMotion) return;
+      const ih = window.innerHeight;
+      curtainSections.forEach((el, i) => {
+        const p = Math.min(Math.max((window.scrollY - i * ih) / ih, 0), 1);
+        overlays[i].style.opacity = String(p * 0.25);
+        el.style.transform = p > 0 ? `scale(${1 - p * 0.06})` : "";
+      });
+    };
+    const onCurtainScroll = () => {
+      if (!curtainTicking) {
+        curtainTicking = true;
+        requestAnimationFrame(updateCurtain);
+      }
+    };
+    updateCurtain();
+    window.addEventListener("scroll", onCurtainScroll, { passive: true });
+
     return () => {
       revealObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("scroll", onCurtainScroll);
+      overlays.forEach((overlay) => overlay.remove());
     };
   }, []);
 
