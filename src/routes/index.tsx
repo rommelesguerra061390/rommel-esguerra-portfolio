@@ -1256,15 +1256,68 @@ function PeekCarousel<T>({
 }
 
 function WorkGrid() {
-  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
+  const [zoom, setZoom] = useState<{ src: string; alt: string; thumb: HTMLElement } | null>(null);
+  const viewerImgRef = useRef<HTMLImageElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const closingRef = useRef(false);
+
+  const openZoom = (img: { src: string; alt: string }, thumb: HTMLElement) => {
+    closingRef.current = false;
+    thumb.style.visibility = "hidden";
+    setZoom({ ...img, thumb });
+  };
+
+  // FLIP: after the centered viewer mounts, transform it back over the
+  // thumbnail, then transition the transform to none with the spring curve.
+  useLayoutEffect(() => {
+    if (!zoom) return;
+    const viewer = viewerImgRef.current;
+    if (!viewer) return;
+    const applyFlip = () => {
+      const t = zoom.thumb.getBoundingClientRect();
+      const v = viewer.getBoundingClientRect();
+      if (v.width === 0) return;
+      const dx = t.left + t.width / 2 - (v.left + v.width / 2);
+      const dy = t.top + t.height / 2 - (v.top + v.height / 2);
+      viewer.style.transition = "none";
+      viewer.style.transform = `translate(${dx}px, ${dy}px) scale(${t.width / v.width})`;
+      void viewer.offsetWidth; // force reflow
+      viewer.classList.add("flip-viewer-anim");
+      viewer.style.transform = "none";
+    };
+    if (viewer.complete && viewer.naturalWidth > 0) applyFlip();
+    else viewer.addEventListener("load", applyFlip, { once: true });
+    closeBtnRef.current?.focus();
+  }, [zoom]);
+
+  const closeZoom = () => {
+    if (!zoom || closingRef.current) return;
+    closingRef.current = true;
+    const viewer = viewerImgRef.current;
+    const finish = () => {
+      zoom.thumb.style.visibility = "";
+      const thumb = zoom.thumb;
+      setZoom(null);
+      thumb.focus();
+    };
+    if (!viewer) return finish();
+    const t = zoom.thumb.getBoundingClientRect();
+    const v = viewer.getBoundingClientRect();
+    const dx = t.left + t.width / 2 - (v.left + v.width / 2);
+    const dy = t.top + t.height / 2 - (v.top + v.height / 2);
+    viewer.style.transform = `translate(${dx}px, ${dy}px) scale(${t.width / v.width})`;
+    viewer.classList.add("flip-viewer-closing");
+    window.setTimeout(finish, 650);
+  };
 
   useEffect(() => {
     if (!zoom) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setZoom(null);
+      if (e.key === "Escape") closeZoom();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zoom]);
 
   return (
