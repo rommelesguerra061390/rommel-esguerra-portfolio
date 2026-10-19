@@ -1333,7 +1333,7 @@ function WorkGrid() {
                 <button
                   key={img.src}
                   type="button"
-                  onClick={() => setZoom(img)}
+                  onClick={(e) => openZoom(img, e.currentTarget)}
                   aria-label={`Enlarge screenshot: ${img.alt}`}
                   className="group block overflow-hidden rounded-md border border-border bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
                 >
@@ -1374,22 +1374,26 @@ function WorkGrid() {
           role="dialog"
           aria-modal="true"
           aria-label={zoom.alt}
-          onClick={() => setZoom(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_oklab,var(--background)_88%,transparent)] p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
         >
+          <div
+            className="flip-scrim absolute inset-0 bg-[color-mix(in_oklab,var(--background)_88%,transparent)] backdrop-blur-sm"
+            onClick={closeZoom}
+          />
           <button
+            ref={closeBtnRef}
             type="button"
             aria-label="Close image"
-            onClick={() => setZoom(null)}
-            className="absolute right-4 top-4 rounded-full border border-border bg-card p-2 text-foreground hover:border-primary"
+            onClick={closeZoom}
+            className="absolute right-4 top-4 z-10 rounded-full border border-border bg-card p-2 text-foreground hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
           >
             <X className="size-5" />
           </button>
           <img
+            ref={viewerImgRef}
             src={zoom.src}
             alt={zoom.alt}
-            onClick={(e) => e.stopPropagation()}
-            className="max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
+            className="flip-viewer relative max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
           />
         </div>
       )}
