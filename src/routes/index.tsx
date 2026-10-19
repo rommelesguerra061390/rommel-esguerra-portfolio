@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
 import {
   Bot,
   Workflow,
@@ -1256,15 +1256,68 @@ function PeekCarousel<T>({
 }
 
 function WorkGrid() {
-  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
+  const [zoom, setZoom] = useState<{ src: string; alt: string; thumb: HTMLElement } | null>(null);
+  const viewerImgRef = useRef<HTMLImageElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
+  const closingRef = useRef(false);
+
+  const openZoom = (img: { src: string; alt: string }, thumb: HTMLElement) => {
+    closingRef.current = false;
+    thumb.style.visibility = "hidden";
+    setZoom({ ...img, thumb });
+  };
+
+  // FLIP: after the centered viewer mounts, transform it back over the
+  // thumbnail, then transition the transform to none with the spring curve.
+  useLayoutEffect(() => {
+    if (!zoom) return;
+    const viewer = viewerImgRef.current;
+    if (!viewer) return;
+    const applyFlip = () => {
+      const t = zoom.thumb.getBoundingClientRect();
+      const v = viewer.getBoundingClientRect();
+      if (v.width === 0) return;
+      const dx = t.left + t.width / 2 - (v.left + v.width / 2);
+      const dy = t.top + t.height / 2 - (v.top + v.height / 2);
+      viewer.style.transition = "none";
+      viewer.style.transform = `translate(${dx}px, ${dy}px) scale(${t.width / v.width})`;
+      void viewer.offsetWidth; // force reflow
+      viewer.classList.add("flip-viewer-anim");
+      viewer.style.transform = "none";
+    };
+    if (viewer.complete && viewer.naturalWidth > 0) applyFlip();
+    else viewer.addEventListener("load", applyFlip, { once: true });
+    closeBtnRef.current?.focus();
+  }, [zoom]);
+
+  const closeZoom = () => {
+    if (!zoom || closingRef.current) return;
+    closingRef.current = true;
+    const viewer = viewerImgRef.current;
+    const finish = () => {
+      zoom.thumb.style.visibility = "";
+      const thumb = zoom.thumb;
+      setZoom(null);
+      thumb.focus();
+    };
+    if (!viewer) return finish();
+    const t = zoom.thumb.getBoundingClientRect();
+    const v = viewer.getBoundingClientRect();
+    const dx = t.left + t.width / 2 - (v.left + v.width / 2);
+    const dy = t.top + t.height / 2 - (v.top + v.height / 2);
+    viewer.style.transform = `translate(${dx}px, ${dy}px) scale(${t.width / v.width})`;
+    viewer.classList.add("flip-viewer-closing");
+    window.setTimeout(finish, 650);
+  };
 
   useEffect(() => {
     if (!zoom) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setZoom(null);
+      if (e.key === "Escape") closeZoom();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zoom]);
 
   return (
@@ -1280,7 +1333,7 @@ function WorkGrid() {
                 <button
                   key={img.src}
                   type="button"
-                  onClick={() => setZoom(img)}
+                  onClick={(e) => openZoom(img, e.currentTarget)}
                   aria-label={`Enlarge screenshot: ${img.alt}`}
                   className="group block overflow-hidden rounded-md border border-border bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
                 >
@@ -1321,22 +1374,26 @@ function WorkGrid() {
           role="dialog"
           aria-modal="true"
           aria-label={zoom.alt}
-          onClick={() => setZoom(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[color-mix(in_oklab,var(--background)_88%,transparent)] p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
         >
+          <div
+            className="flip-scrim absolute inset-0 bg-[color-mix(in_oklab,var(--background)_88%,transparent)] backdrop-blur-sm"
+            onClick={closeZoom}
+          />
           <button
+            ref={closeBtnRef}
             type="button"
             aria-label="Close image"
-            onClick={() => setZoom(null)}
-            className="absolute right-4 top-4 rounded-full border border-border bg-card p-2 text-foreground hover:border-primary"
+            onClick={closeZoom}
+            className="absolute right-4 top-4 z-10 rounded-full border border-border bg-card p-2 text-foreground hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
           >
             <X className="size-5" />
           </button>
           <img
+            ref={viewerImgRef}
             src={zoom.src}
             alt={zoom.alt}
-            onClick={(e) => e.stopPropagation()}
-            className="max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
+            className="flip-viewer relative max-h-[90vh] max-w-full rounded-lg border border-border object-contain shadow-[var(--shadow-elegant)]"
           />
         </div>
       )}
