@@ -66,6 +66,7 @@ import noCodeZapier from "@/assets/Rommel_Esguerra_No_Code_Automation_Zapier.pdf
 import gmailAutoSort from "@/assets/Make_Gmail_Auto_Sort_attachemnt_upload_with_log_monitoring_and_autonotifications.png.asset.json";
 import followUpSystem from "@/assets/Automated_Follow_Up_System_Make.jpg.asset.json";
 import gmailAutoLabeling from "@/assets/Make_Gmail_Email_Auto_Labeling_Router.jpg.asset.json";
+import ghlLeadScoring from "@/assets/New_Lead_Form_Lead_Scoring.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -482,6 +483,24 @@ const WORK = [
     ],
     images: [
       { src: ghlQuote.url, alt: "GoHighLevel quote follow-up workflow with booked and sent branches" },
+    ],
+  },
+  {
+    title: "GoHighLevel New Lead Form & Lead Scoring Automation",
+    tag: "GoHighLevel",
+    body: "A GoHighLevel workflow that starts the moment a lead form is submitted. It creates the farm-lead opportunity, resets the contact's lead score to a clean baseline, then scores the lead automatically: nested If/Else conditions grade acreage into tiers (over 250 acres, 51–250, 11–50 and 0–10), each adding points through math operations, and Go To steps route every branch into a second set of conditions that adds farming-challenge points at high, medium or low — so all paths converge on one final score.",
+    problem:
+      "Every enquiry that came through the form looked the same, so a 300-acre operation and a smallholder sat in the same queue. Judging a lead by gut feel — or by whoever opened the record first — meant follow-up priority was a guess, and two people could reach different conclusions about the same lead.",
+    benefits: [
+      "Every lead arrives with a number attached, so the team works the highest-value accounts first",
+      "Acreage and challenge answers are converted into points the instant the form is submitted — no manual assessment",
+      "Resetting the score on each submission keeps the number accurate instead of stacking stale points",
+      "The opportunity is created and the record is scored before anyone opens the CRM",
+      "The same rules apply to every lead, so triage stays consistent across staff and shifts",
+      "Adding a tier or changing a point value is a single condition edit, not a retraining conversation",
+    ],
+    images: [
+      { src: ghlLeadScoring.url, alt: "GoHighLevel workflow triggered by a submitted form that creates an opportunity, resets the lead score, then adds points through nested acreage and farming-challenge conditions" },
     ],
   },
 ];
